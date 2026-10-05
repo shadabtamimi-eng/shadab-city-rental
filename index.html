@@ -5,32 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SHADAB CITY RENTAL | Equipment Rental Saudi Arabia</title>
+    <title>Equipment Rental Saudi Arabia | SHADAB CITY RENTAL</title>
 
     <meta name="description"
-        content="SHADAB CITY RENTAL is a Saudi equipment rental marketplace connecting equipment owners with customers looking for construction, industrial, transport and heavy equipment across Saudi Arabia.">
+        content="SHADAB CITY RENTAL is a Saudi equipment rental marketplace for construction, industrial, transport and heavy equipment. Find excavators, forklifts, cranes, loaders, generators and more across Saudi Arabia.">
 
     <meta name="keywords"
-        content="equipment rental Saudi Arabia, construction equipment rental, heavy equipment rental, excavator rental Saudi Arabia, forklift rental Saudi Arabia, crane rental Saudi Arabia, equipment marketplace Saudi Arabia, SHADAB CITY RENTAL">
+        content="equipment rental Saudi Arabia, equipment rental, construction equipment rental Saudi Arabia, heavy equipment rental Saudi Arabia, excavator rental Saudi Arabia, forklift rental Saudi Arabia, crane rental Saudi Arabia, loader rental Saudi Arabia, generator rental Saudi Arabia, truck rental Saudi Arabia, industrial equipment rental, equipment marketplace Saudi Arabia, SHADAB CITY RENTAL">
 
     <meta name="author" content="SHADAB CITY RENTAL">
 
     <meta name="robots" content="index, follow">
 
     <link rel="canonical"
-        href="https://shadab-city-rental-2.onrender.com/">
+        href="https://shadabcityrental.com/">
 
     <meta property="og:title"
-        content="SHADAB CITY RENTAL | Equipment Rental Saudi Arabia">
+        content="Equipment Rental Saudi Arabia | SHADAB CITY RENTAL">
 
     <meta property="og:description"
-        content="Find, list and rent construction, industrial, transport and heavy equipment across Saudi Arabia.">
+        content="Find, list and rent construction, industrial, transport and heavy equipment across Saudi Arabia through SHADAB CITY RENTAL.">
 
     <meta property="og:type"
         content="website">
 
     <meta property="og:url"
-        content="https://shadab-city-rental-2.onrender.com/">
+        content="https://shadabcityrental.com/">
 
     <style>
 
@@ -165,6 +165,10 @@
 
         .nav-track {
             color: #7dd3fc !important;
+        }
+
+        .nav-rating {
+            color: #fbbf24 !important;
         }
 
         .mobile-menu {
@@ -1160,6 +1164,95 @@
             font-size: 13px;
         }
 
+        /* =========================
+           CUSTOMER RATING SECTION
+        ========================= */
+
+        .rating-section {
+            padding: 80px 0;
+            background: #f6f8fb;
+        }
+
+        .rating-panel {
+            display: grid;
+            grid-template-columns: 1.6fr .8fr auto;
+            align-items: center;
+            gap: 35px;
+
+            padding: 38px;
+
+            background: white;
+
+            border: 1px solid #e1e6ed;
+
+            border-radius: 14px;
+
+            box-shadow: 0 15px 40px rgba(15,23,42,.07);
+        }
+
+        .rating-copy h2 {
+            margin: 8px 0 10px;
+
+            color: #0b1220;
+
+            font-size: 30px;
+
+            line-height: 1.15;
+        }
+
+        .rating-copy p {
+            max-width: 600px;
+
+            color: #6b7280;
+
+            font-size: 14px;
+        }
+
+        .rating-summary {
+            text-align: center;
+
+            padding: 10px 25px;
+
+            border-left: 1px solid #e5e7eb;
+            border-right: 1px solid #e5e7eb;
+        }
+
+        .rating-score {
+            display: block;
+
+            color: #111827;
+
+            font-size: 42px;
+            font-weight: 900;
+
+            line-height: 1;
+        }
+
+        .rating-stars {
+            margin: 8px 0 5px;
+
+            color: #f59e0b;
+
+            font-size: 23px;
+
+            letter-spacing: 2px;
+        }
+
+        .rating-count {
+            color: #6b7280;
+
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .rating-action {
+            white-space: nowrap;
+        }
+
+        .rating-action .btn {
+            min-width: 155px;
+        }
+
         .owner-section {
             background:
                 linear-gradient(
@@ -1256,6 +1349,11 @@
             font-weight: 800;
         }
 
+        .footer-rating {
+            color: #fbbf24 !important;
+            font-weight: 800;
+        }
+
         .footer-bottom {
             margin-top: 40px;
 
@@ -1309,6 +1407,10 @@
             color: #f59e0b;
         }
 
+        .mobile-nav .mobile-rating {
+            color: #fbbf24;
+        }
+
         @media (max-width: 1050px) {
 
             nav {
@@ -1343,6 +1445,23 @@
 
             .category-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            .rating-panel {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .rating-copy {
+                grid-column: 1 / -1;
+            }
+
+            .rating-summary {
+                border-left: none;
+                border-right: 1px solid #e5e7eb;
+            }
+
+            .rating-action {
+                text-align: center;
             }
 
             .footer-grid {
@@ -1439,6 +1558,46 @@
                 font-size: 30px;
             }
 
+            .rating-section {
+                padding: 65px 0;
+            }
+
+            .rating-panel {
+                grid-template-columns: 1fr;
+
+                padding: 25px;
+
+                gap: 22px;
+
+                text-align: center;
+            }
+
+            .rating-copy {
+                grid-column: auto;
+            }
+
+            .rating-copy h2 {
+                font-size: 27px;
+            }
+
+            .rating-copy p {
+                margin: auto;
+            }
+
+            .rating-summary {
+                border-left: none;
+                border-right: none;
+
+                border-top: 1px solid #e5e7eb;
+                border-bottom: 1px solid #e5e7eb;
+
+                padding: 20px 0;
+            }
+
+            .rating-action .btn {
+                width: 100%;
+            }
+
             .owner-content {
                 flex-direction: column;
                 align-items: flex-start;
@@ -1492,6 +1651,11 @@
                     How It Works
                 </a>
 
+                <a href="pages/rating.html"
+                   class="nav-rating">
+                    Rate Us
+                </a>
+
                 <a href="pages/customer-requests.html"
                    class="nav-track">
                     Track Request
@@ -1507,7 +1671,6 @@
                     Owner Login
                 </a>
 
-                <!-- ADMIN LOGIN ADDED -->
                 <a href="pages/admin-login.html"
                    class="nav-admin">
                     Admin Login
@@ -1550,6 +1713,12 @@
             How It Works
         </a>
 
+        <a href="pages/rating.html"
+           class="mobile-rating"
+           onclick="closeMobileMenu()">
+            Rate Us ⭐
+        </a>
+
         <a href="pages/customer-requests.html"
            onclick="closeMobileMenu()">
             Track Request
@@ -1570,7 +1739,6 @@
             Owner Login
         </a>
 
-        <!-- ADMIN LOGIN ADDED -->
         <a href="pages/admin-login.html"
            class="mobile-admin"
            onclick="closeMobileMenu()">
@@ -2249,6 +2417,79 @@
     </section>
 
 
+    <!-- =========================
+         CUSTOMER RATING SECTION
+    ========================= -->
+
+    <section class="rating-section">
+
+        <div class="container">
+
+            <div class="rating-panel">
+
+                <div class="rating-copy">
+
+                    <div class="eyebrow">
+                        CUSTOMER EXPERIENCE
+                    </div>
+
+                    <h2>
+                        WHAT OUR CUSTOMERS SAY
+                    </h2>
+
+                    <p>
+                        Share your experience with SHADAB CITY RENTAL
+                        and help other customers make better rental
+                        decisions.
+                    </p>
+
+                </div>
+
+                <div class="rating-summary">
+
+                    <strong
+                        id="homepageRatingAverage"
+                        class="rating-score">
+                        0.0
+                    </strong>
+
+                    <div
+                        id="homepageRatingStars"
+                        class="rating-stars">
+                        ☆☆☆☆☆
+                    </div>
+
+                    <span class="rating-count">
+
+                        <span id="homepageReviewCount">
+                            0
+                        </span>
+
+                        customer reviews
+
+                    </span>
+
+                </div>
+
+                <div class="rating-action">
+
+                    <a
+                        href="pages/rating.html"
+                        class="btn btn-primary">
+
+                        RATE US ⭐ →
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
     <section class="owner-section">
 
         <div class="container">
@@ -2341,6 +2582,14 @@
                         Browse Marketplace
                     </a>
 
+                    <a
+                        href="pages/rating.html"
+                        class="footer-rating">
+
+                        Rate Us & Reviews
+
+                    </a>
+
                 </div>
 
                 <div>
@@ -2389,7 +2638,15 @@
 
                     </a>
 
-                    <!-- ADMIN LOGIN ADDED IN FOOTER -->
+                    <a
+                        href="pages/rating.html"
+                        class="footer-rating"
+                        style="margin-top:10px;">
+
+                        Customer Reviews →
+
+                    </a>
+
                     <a
                         href="pages/admin-login.html"
                         class="footer-admin"
@@ -2588,7 +2845,6 @@
 
         /* =========================
            GET APPROVED EQUIPMENT
-           FIXED API RESPONSE MISMATCH
         ========================= */
 
         async function getApprovedEquipment() {
@@ -2615,27 +2871,12 @@
                 const data =
                     await response.json();
 
-
-                /*
-                Backend normally returns:
-
-                {
-                    success: true,
-                    equipment: [...]
-                }
-
-                This code supports both:
-                1. Direct array
-                2. { equipment: [...] }
-                */
-
                 const equipment =
                     Array.isArray(data)
                     ? data
                     : Array.isArray(data.equipment)
                         ? data.equipment
                         : [];
-
 
                 return equipment.filter(function(item) {
 
@@ -2858,7 +3099,6 @@
 
                 }).join("");
 
-
             if (equipment.length > 6) {
 
                 grid.innerHTML += `
@@ -2913,7 +3153,6 @@
 
         /* =========================
            REQUEST COUNT
-           FIXED API RESPONSE MISMATCH
         ========================= */
 
         async function updateRequestCount() {
@@ -2950,27 +3189,12 @@
                 const data =
                     await response.json();
 
-
-                /*
-                Backend can return:
-
-                {
-                    success: true,
-                    requests: [...]
-                }
-
-                This supports both:
-                1. Direct array
-                2. { requests: [...] }
-                */
-
                 const requests =
                     Array.isArray(data)
                     ? data
                     : Array.isArray(data.requests)
                         ? data.requests
                         : [];
-
 
                 count.textContent =
                     String(requests.length)
@@ -2991,6 +3215,119 @@
 
 
         /* =========================
+           HOMEPAGE RATINGS
+        ========================= */
+
+        function displayHomepageRatingStars(rating) {
+
+            const numericRating =
+                Number(rating) || 0;
+
+            const roundedRating =
+                Math.round(numericRating);
+
+            let stars = "";
+
+            for (let i = 1; i <= 5; i++) {
+
+                stars +=
+                    i <= roundedRating
+                        ? "★"
+                        : "☆";
+
+            }
+
+            return stars;
+
+        }
+
+
+        async function loadHomepageRatings() {
+
+            const averageElement =
+                document.getElementById(
+                    "homepageRatingAverage"
+                );
+
+            const starsElement =
+                document.getElementById(
+                    "homepageRatingStars"
+                );
+
+            const countElement =
+                document.getElementById(
+                    "homepageReviewCount"
+                );
+
+            if (
+                !averageElement ||
+                !starsElement ||
+                !countElement
+            ) {
+                return;
+            }
+
+            try {
+
+                const response =
+                    await fetch(
+                        API_BASE + "/api/ratings",
+                        {
+                            method: "GET",
+                            cache: "no-store"
+                        }
+                    );
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Ratings API failed"
+                    );
+
+                }
+
+                const data =
+                    await response.json();
+
+                const average =
+                    Number(data.average || 0);
+
+                const total =
+                    Number(data.total || 0);
+
+                averageElement.textContent =
+                    average.toFixed(1);
+
+                starsElement.textContent =
+                    displayHomepageRatingStars(
+                        average
+                    );
+
+                countElement.textContent =
+                    String(total);
+
+            } catch (error) {
+
+                console.error(
+                    "Homepage Ratings API Error:",
+                    error
+                );
+
+                averageElement.textContent =
+                    "0.0";
+
+                starsElement.textContent =
+                    "☆☆☆☆☆";
+
+                countElement.textContent =
+                    "0";
+
+            }
+
+        }
+
+
+        /* =========================
            INITIALIZE
         ========================= */
 
@@ -2998,7 +3335,8 @@
 
             await Promise.all([
                 renderLiveEquipment(),
-                updateRequestCount()
+                updateRequestCount(),
+                loadHomepageRatings()
             ]);
 
         }
@@ -3020,6 +3358,8 @@
                     renderLiveEquipment();
 
                     updateRequestCount();
+
+                    loadHomepageRatings();
 
                 }
 

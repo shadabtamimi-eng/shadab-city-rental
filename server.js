@@ -49,11 +49,17 @@ app.use("/pages", express.static(PAGES_DIR));
 const dbPath = path.join(__dirname, "shadab_rental.db");
 
 const db = new sqlite3.Database(dbPath, (err) => {
+
     if (err) {
+
         console.error("Database connection error:", err.message);
+
     } else {
+
         console.log("SQLite database connected.");
+
     }
+
 });
 
 
@@ -109,6 +115,24 @@ db.serialize(() => {
         )
     `);
 
+    /*
+     * PUBLIC RATINGS / REVIEWS
+     *
+     * No phone number.
+     * No login required.
+     * No admin approval.
+     * Reviews become live immediately.
+     */
+    db.run(`
+        CREATE TABLE IF NOT EXISTS ratings (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            customer_name TEXT NOT NULL,
+            rating INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 5),
+            review TEXT NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    `);
+
 });
 
 
@@ -117,6 +141,7 @@ db.serialize(() => {
 ========================================================= */
 
 function generateEquipmentId(index = 0) {
+
     return (
         "EQ-" +
         Date.now() +
@@ -128,9 +153,12 @@ function generateEquipmentId(index = 0) {
             .substring(2, 7)
             .toUpperCase()
     );
+
 }
 
+
 function generateRequestId() {
+
     return (
         "REQ-" +
         Date.now() +
@@ -140,15 +168,20 @@ function generateRequestId() {
             .substring(2, 7)
             .toUpperCase()
     );
+
 }
 
+
 function cleanValue(value) {
+
     if (value === undefined || value === null) {
         return "";
     }
 
     return String(value).trim();
+
 }
+
 
 function normalizeEquipmentRow(row) {
 
@@ -167,6 +200,7 @@ function normalizeEquipmentRow(row) {
     });
 
     return {
+
         name:
             normalized.equipmentname ||
             normalized.name ||
@@ -200,7 +234,9 @@ function normalizeEquipmentRow(row) {
             normalized.image ||
             normalized.photourl ||
             ""
+
     };
+
 }
 
 
@@ -211,9 +247,14 @@ function normalizeEquipmentRow(row) {
 app.get("/api", (req, res) => {
 
     res.json({
+
         success: true,
-        message: "SHADAB CITY RENTAL API is running",
+
+        message:
+            "SHADAB CITY RENTAL API is running",
+
         status: "online"
+
     });
 
 });
@@ -234,8 +275,12 @@ app.post("/api/owners/register", async (req, res) => {
         if (!name || !phone || !password) {
 
             return res.status(400).json({
+
                 success: false,
-                message: "Name, phone and password are required."
+
+                message:
+                    "Name, phone and password are required."
+
             });
 
         }
@@ -243,21 +288,33 @@ app.post("/api/owners/register", async (req, res) => {
         if (password.length < 6) {
 
             return res.status(400).json({
+
                 success: false,
-                message: "Password must be at least 6 characters."
+
+                message:
+                    "Password must be at least 6 characters."
+
             });
 
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword =
+            await bcrypt.hash(password, 10);
 
         db.run(
+
             `
             INSERT INTO owners
             (name, phone, password)
             VALUES (?, ?, ?)
             `,
-            [name, phone, hashedPassword],
+
+            [
+                name,
+                phone,
+                hashedPassword
+            ],
+
             function (err) {
 
                 if (err) {
@@ -265,8 +322,12 @@ app.post("/api/owners/register", async (req, res) => {
                     if (err.message.includes("UNIQUE")) {
 
                         return res.status(409).json({
+
                             success: false,
-                            message: "This phone number is already registered."
+
+                            message:
+                                "This phone number is already registered."
+
                         });
 
                     }
@@ -274,23 +335,37 @@ app.post("/api/owners/register", async (req, res) => {
                     console.error(err);
 
                     return res.status(500).json({
+
                         success: false,
-                        message: "Registration failed."
+
+                        message:
+                            "Registration failed."
+
                     });
 
                 }
 
                 res.json({
+
                     success: true,
-                    message: "Owner registered successfully.",
+
+                    message:
+                        "Owner registered successfully.",
+
                     owner: {
+
                         id: this.lastID,
+
                         name,
+
                         phone
+
                     }
+
                 });
 
             }
+
         );
 
     } catch (error) {
@@ -298,8 +373,11 @@ app.post("/api/owners/register", async (req, res) => {
         console.error(error);
 
         res.status(500).json({
+
             success: false,
+
             message: "Server error."
+
         });
 
     }
@@ -319,19 +397,26 @@ app.post("/api/owners/login", (req, res) => {
     if (!phone || !password) {
 
         return res.status(400).json({
+
             success: false,
-            message: "Phone and password are required."
+
+            message:
+                "Phone and password are required."
+
         });
 
     }
 
     db.get(
+
         `
         SELECT *
         FROM owners
         WHERE phone = ?
         `,
+
         [phone],
+
         async (err, owner) => {
 
             if (err) {
@@ -339,8 +424,12 @@ app.post("/api/owners/login", (req, res) => {
                 console.error(err);
 
                 return res.status(500).json({
+
                     success: false,
-                    message: "Login failed."
+
+                    message:
+                        "Login failed."
+
                 });
 
             }
@@ -348,37 +437,555 @@ app.post("/api/owners/login", (req, res) => {
             if (!owner) {
 
                 return res.status(401).json({
+
                     success: false,
-                    message: "Invalid phone number or password."
+
+                    message:
+                        "Invalid phone number or password."
+
                 });
 
             }
 
-            const passwordMatch = await bcrypt.compare(
-                password,
-                owner.password
-            );
+            const passwordMatch =
+                await bcrypt.compare(
+                    password,
+                    owner.password
+                );
 
             if (!passwordMatch) {
 
                 return res.status(401).json({
+
                     success: false,
-                    message: "Invalid phone number or password."
+
+                    message:
+                        "Invalid phone number or password."
+
                 });
 
             }
 
             res.json({
+
                 success: true,
-                message: "Login successful.",
+
+                message:
+                    "Login successful.",
+
                 owner: {
+
                     id: owner.id,
+
                     name: owner.name,
+
                     phone: owner.phone
+
                 }
+
             });
 
         }
+
+    );
+
+});
+
+
+/* =========================================================
+   OWNER - UPDATE NAME
+========================================================= */
+
+app.put("/api/owners/:ownerId/name", (req, res) => {
+
+    const ownerId =
+        Number(req.params.ownerId);
+
+    const newName =
+        cleanValue(req.body.name);
+
+    if (
+        !Number.isInteger(ownerId) ||
+        ownerId <= 0
+    ) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Invalid owner ID."
+
+        });
+
+    }
+
+    if (!newName) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Owner name is required."
+
+        });
+
+    }
+
+    if (
+        newName.length < 2 ||
+        newName.length > 100
+    ) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Owner name must be between 2 and 100 characters."
+
+        });
+
+    }
+
+    db.get(
+
+        `
+        SELECT id
+        FROM owners
+        WHERE id = ?
+        `,
+
+        [ownerId],
+
+        (ownerErr, owner) => {
+
+            if (ownerErr) {
+
+                console.error(ownerErr);
+
+                return res.status(500).json({
+
+                    success: false,
+
+                    message:
+                        "Database error."
+
+                });
+
+            }
+
+            if (!owner) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "Owner account not found."
+
+                });
+
+            }
+
+            db.run(
+
+                `
+                UPDATE owners
+                SET name = ?
+                WHERE id = ?
+                `,
+
+                [
+                    newName,
+                    ownerId
+                ],
+
+                function (updateErr) {
+
+                    if (updateErr) {
+
+                        console.error(updateErr);
+
+                        return res.status(500).json({
+
+                            success: false,
+
+                            message:
+                                "Owner name could not be updated."
+
+                        });
+
+                    }
+
+                    db.run(
+
+                        `
+                        UPDATE equipment
+                        SET owner_name = ?
+                        WHERE owner_id = ?
+                        `,
+
+                        [
+                            newName,
+                            ownerId
+                        ],
+
+                        function (equipmentErr) {
+
+                            if (equipmentErr) {
+
+                                console.error(equipmentErr);
+
+                                return res.status(500).json({
+
+                                    success: false,
+
+                                    message:
+                                        "Owner name updated, but equipment records could not be synchronized."
+
+                                });
+
+                            }
+
+                            res.json({
+
+                                success: true,
+
+                                message:
+                                    "Owner name updated successfully.",
+
+                                name: newName
+
+                            });
+
+                        }
+
+                    );
+
+                }
+
+            );
+
+        }
+
+    );
+
+});
+
+
+/* =========================================================
+   OWNER - PERMANENT ACCOUNT DELETE
+========================================================= */
+
+app.delete("/api/owners/:ownerId", (req, res) => {
+
+    const ownerId =
+        Number(req.params.ownerId);
+
+    const password =
+        cleanValue(req.body.password);
+
+    if (
+        !Number.isInteger(ownerId) ||
+        ownerId <= 0
+    ) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Invalid owner ID."
+
+        });
+
+    }
+
+    if (!password) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Current password is required to permanently delete the account."
+
+        });
+
+    }
+
+
+    db.get(
+
+        `
+        SELECT id, name, phone, password
+        FROM owners
+        WHERE id = ?
+        `,
+
+        [ownerId],
+
+        async (err, owner) => {
+
+            if (err) {
+
+                console.error(err);
+
+                return res.status(500).json({
+
+                    success: false,
+
+                    message:
+                        "Database error while checking owner account."
+
+                });
+
+            }
+
+            if (!owner) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "Owner account not found."
+
+                });
+
+            }
+
+
+            const passwordMatch =
+                await bcrypt.compare(
+                    password,
+                    owner.password
+                );
+
+            if (!passwordMatch) {
+
+                return res.status(401).json({
+
+                    success: false,
+
+                    message:
+                        "Incorrect password. Account was not deleted."
+
+                });
+
+            }
+
+
+            db.serialize(() => {
+
+                db.run(
+                    "BEGIN TRANSACTION",
+                    (beginErr) => {
+
+                        if (beginErr) {
+
+                            console.error(beginErr);
+
+                            return res.status(500).json({
+
+                                success: false,
+
+                                message:
+                                    "Could not start account deletion."
+
+                            });
+
+                        }
+
+
+                        db.run(
+
+                            `
+                            DELETE FROM rental_requests
+                            WHERE equipment_id IN (
+                                SELECT equipment_id
+                                FROM equipment
+                                WHERE owner_id = ?
+                            )
+                            `,
+
+                            [ownerId],
+
+                            (requestErr) => {
+
+                                if (requestErr) {
+
+                                    console.error(requestErr);
+
+                                    return db.run(
+                                        "ROLLBACK",
+                                        () => {
+
+                                            res.status(500).json({
+
+                                                success: false,
+
+                                                message:
+                                                    "Could not delete rental requests. Account was not deleted."
+
+                                            });
+
+                                        }
+                                    );
+
+                                }
+
+
+                                db.run(
+
+                                    `
+                                    DELETE FROM equipment
+                                    WHERE owner_id = ?
+                                    `,
+
+                                    [ownerId],
+
+                                    (equipmentErr) => {
+
+                                        if (equipmentErr) {
+
+                                            console.error(equipmentErr);
+
+                                            return db.run(
+                                                "ROLLBACK",
+                                                () => {
+
+                                                    res.status(500).json({
+
+                                                        success: false,
+
+                                                        message:
+                                                            "Could not delete owner equipment. Account was not deleted."
+
+                                                    });
+
+                                                }
+                                            );
+
+                                        }
+
+
+                                        db.run(
+
+                                            `
+                                            DELETE FROM owners
+                                            WHERE id = ?
+                                            `,
+
+                                            [ownerId],
+
+                                            function (ownerErr) {
+
+                                                if (ownerErr) {
+
+                                                    console.error(ownerErr);
+
+                                                    return db.run(
+                                                        "ROLLBACK",
+                                                        () => {
+
+                                                            res.status(500).json({
+
+                                                                success: false,
+
+                                                                message:
+                                                                    "Could not delete owner account."
+
+                                                            });
+
+                                                        }
+                                                    );
+
+                                                }
+
+
+                                                if (this.changes === 0) {
+
+                                                    return db.run(
+                                                        "ROLLBACK",
+                                                        () => {
+
+                                                            res.status(404).json({
+
+                                                                success: false,
+
+                                                                message:
+                                                                    "Owner account was not found."
+
+                                                            });
+
+                                                        }
+                                                    );
+
+                                                }
+
+
+                                                db.run(
+                                                    "COMMIT",
+                                                    (commitErr) => {
+
+                                                        if (commitErr) {
+
+                                                            console.error(commitErr);
+
+                                                            return db.run(
+                                                                "ROLLBACK",
+                                                                () => {
+
+                                                                    res.status(500).json({
+
+                                                                        success: false,
+
+                                                                        message:
+                                                                            "Account deletion could not be completed."
+
+                                                                    });
+
+                                                                }
+                                                            );
+
+                                                        }
+
+
+                                                        res.json({
+
+                                                            success: true,
+
+                                                            message:
+                                                                "Owner account and all related records have been permanently deleted."
+
+                                                        });
+
+                                                    }
+                                                );
+
+                                            }
+
+                                        );
+
+                                    }
+
+                                );
+
+                            }
+
+                        );
+
+                    }
+
+                );
+
+            });
+
+        }
+
     );
 
 });
@@ -390,18 +997,33 @@ app.post("/api/owners/login", (req, res) => {
 
 app.post("/api/equipment", (req, res) => {
 
-    const ownerId = cleanValue(req.body.ownerId);
-    const ownerName = cleanValue(req.body.ownerName);
-    const ownerPhone = cleanValue(req.body.ownerPhone);
+    const ownerId =
+        cleanValue(req.body.ownerId);
 
-    const name = cleanValue(req.body.name);
-    const category = cleanValue(req.body.category);
-    const location = cleanValue(req.body.location);
+    const ownerName =
+        cleanValue(req.body.ownerName);
 
-    const price = Number(req.body.price);
+    const ownerPhone =
+        cleanValue(req.body.ownerPhone);
 
-    const description = cleanValue(req.body.description);
-    const image = cleanValue(req.body.image);
+    const name =
+        cleanValue(req.body.name);
+
+    const category =
+        cleanValue(req.body.category);
+
+    const location =
+        cleanValue(req.body.location);
+
+    const price =
+        Number(req.body.price);
+
+    const description =
+        cleanValue(req.body.description);
+
+    const image =
+        cleanValue(req.body.image);
+
 
     if (
         !ownerId ||
@@ -415,19 +1037,27 @@ app.post("/api/equipment", (req, res) => {
     ) {
 
         return res.status(400).json({
+
             success: false,
-            message: "Please provide all required equipment details."
+
+            message:
+                "Please provide all required equipment details."
+
         });
 
     }
 
+
     db.get(
+
         `
         SELECT id, name, phone
         FROM owners
         WHERE id = ?
         `,
+
         [ownerId],
+
         (err, owner) => {
 
             if (err) {
@@ -435,8 +1065,12 @@ app.post("/api/equipment", (req, res) => {
                 console.error(err);
 
                 return res.status(500).json({
+
                     success: false,
-                    message: "Database error."
+
+                    message:
+                        "Database error."
+
                 });
 
             }
@@ -444,15 +1078,23 @@ app.post("/api/equipment", (req, res) => {
             if (!owner) {
 
                 return res.status(404).json({
+
                     success: false,
-                    message: "Owner account not found."
+
+                    message:
+                        "Owner account not found."
+
                 });
 
             }
 
-            const equipmentId = generateEquipmentId();
+
+            const equipmentId =
+                generateEquipmentId();
+
 
             db.run(
+
                 `
                 INSERT INTO equipment
                 (
@@ -470,6 +1112,7 @@ app.post("/api/equipment", (req, res) => {
                 )
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending')
                 `,
+
                 [
                     equipmentId,
                     owner.id,
@@ -482,6 +1125,7 @@ app.post("/api/equipment", (req, res) => {
                     description,
                     image
                 ],
+
                 function (insertErr) {
 
                     if (insertErr) {
@@ -489,23 +1133,33 @@ app.post("/api/equipment", (req, res) => {
                         console.error(insertErr);
 
                         return res.status(500).json({
+
                             success: false,
-                            message: "Equipment could not be added."
+
+                            message:
+                                "Equipment could not be added."
+
                         });
 
                     }
 
                     res.json({
+
                         success: true,
+
                         message:
                             "Equipment submitted successfully. Waiting for admin approval.",
+
                         equipmentId
+
                     });
 
                 }
+
             );
 
         }
+
     );
 
 });
@@ -513,52 +1167,73 @@ app.post("/api/equipment", (req, res) => {
 
 /* =========================================================
    BULK EQUIPMENT UPLOAD
-   Excel / CSV -> rows -> database
 ========================================================= */
 
 app.post("/api/equipment/bulk", async (req, res) => {
 
     try {
 
-        const ownerId = cleanValue(req.body.ownerId);
-        const rows = Array.isArray(req.body.rows)
-            ? req.body.rows
-            : [];
+        const ownerId =
+            cleanValue(req.body.ownerId);
+
+        const rows =
+            Array.isArray(req.body.rows)
+                ? req.body.rows
+                : [];
+
 
         if (!ownerId) {
 
             return res.status(400).json({
+
                 success: false,
-                message: "Owner ID is required."
+
+                message:
+                    "Owner ID is required."
+
             });
 
         }
+
 
         if (!rows.length) {
 
             return res.status(400).json({
+
                 success: false,
-                message: "No equipment rows were received."
+
+                message:
+                    "No equipment rows were received."
+
             });
 
         }
+
 
         if (rows.length > 2000) {
 
             return res.status(400).json({
+
                 success: false,
-                message: "Maximum 2000 equipment records can be uploaded at once."
+
+                message:
+                    "Maximum 2000 equipment records can be uploaded at once."
+
             });
 
         }
 
+
         db.get(
+
             `
             SELECT id, name, phone
             FROM owners
             WHERE id = ?
             `,
+
             [ownerId],
+
             async (ownerErr, owner) => {
 
                 if (ownerErr) {
@@ -566,76 +1241,130 @@ app.post("/api/equipment/bulk", async (req, res) => {
                     console.error(ownerErr);
 
                     return res.status(500).json({
+
                         success: false,
-                        message: "Database error while checking owner."
+
+                        message:
+                            "Database error while checking owner."
+
                     });
 
                 }
+
 
                 if (!owner) {
 
                     return res.status(404).json({
+
                         success: false,
-                        message: "Owner account not found."
+
+                        message:
+                            "Owner account not found."
+
                     });
 
                 }
 
+
                 const validRows = [];
                 const errors = [];
 
+
                 rows.forEach((rawRow, index) => {
 
-                    const row = normalizeEquipmentRow(rawRow);
+                    const row =
+                        normalizeEquipmentRow(rawRow);
 
-                    const name = cleanValue(row.name);
-                    const category = cleanValue(row.category);
-                    const location = cleanValue(row.location);
-                    const description = cleanValue(row.description);
-                    const image = cleanValue(row.image);
+                    const name =
+                        cleanValue(row.name);
 
-                    const price = Number(
-                        String(row.price)
-                            .replace(/,/g, "")
-                            .replace(/[^\d.-]/g, "")
-                    );
+                    const category =
+                        cleanValue(row.category);
 
-                    const rowNumber = index + 2;
+                    const location =
+                        cleanValue(row.location);
+
+                    const description =
+                        cleanValue(row.description);
+
+                    const image =
+                        cleanValue(row.image);
+
+                    const price =
+                        Number(
+                            String(row.price)
+                                .replace(/,/g, "")
+                                .replace(/[^\d.-]/g, "")
+                        );
+
+                    const rowNumber =
+                        index + 2;
 
                     const rowErrors = [];
 
+
                     if (!name) {
-                        rowErrors.push("Equipment Name is missing");
+
+                        rowErrors.push(
+                            "Equipment Name is missing"
+                        );
+
                     }
 
                     if (!category) {
-                        rowErrors.push("Category is missing");
+
+                        rowErrors.push(
+                            "Category is missing"
+                        );
+
                     }
 
                     if (!location) {
-                        rowErrors.push("Location is missing");
+
+                        rowErrors.push(
+                            "Location is missing"
+                        );
+
                     }
 
-                    if (!Number.isFinite(price) || price <= 0) {
-                        rowErrors.push("Rental Price/Day is invalid");
+                    if (
+                        !Number.isFinite(price) ||
+                        price <= 0
+                    ) {
+
+                        rowErrors.push(
+                            "Rental Price/Day is invalid"
+                        );
+
                     }
+
 
                     if (rowErrors.length) {
 
                         errors.push({
+
                             row: rowNumber,
+
                             errors: rowErrors
+
                         });
 
                     } else {
 
                         validRows.push({
+
                             name,
+
                             category,
+
                             location,
+
                             price,
+
                             description,
+
                             image
+
                         });
 
                     }
@@ -646,77 +1375,103 @@ app.post("/api/equipment/bulk", async (req, res) => {
                 if (errors.length) {
 
                     return res.status(400).json({
+
                         success: false,
+
                         message:
                             "Some rows contain errors. Please correct the Excel/CSV file and upload again.",
+
                         errors,
-                        validCount: validRows.length,
-                        errorCount: errors.length
+
+                        validCount:
+                            validRows.length,
+
+                        errorCount:
+                            errors.length
+
                     });
 
                 }
 
 
-                /* -------------------------------------------------
-                   Sequential database insertion
-                ------------------------------------------------- */
-
                 const insertRow = (index) => {
 
-                    return new Promise((resolve, reject) => {
+                    return new Promise(
+                        (resolve, reject) => {
 
-                        if (index >= validRows.length) {
-                            return resolve();
-                        }
+                            if (
+                                index >=
+                                validRows.length
+                            ) {
 
-                        const row = validRows[index];
-
-                        const equipmentId = generateEquipmentId(index);
-
-                        db.run(
-                            `
-                            INSERT INTO equipment
-                            (
-                                equipment_id,
-                                owner_id,
-                                owner_name,
-                                owner_phone,
-                                name,
-                                category,
-                                location,
-                                price,
-                                description,
-                                image,
-                                status
-                            )
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending')
-                            `,
-                            [
-                                equipmentId,
-                                owner.id,
-                                owner.name,
-                                owner.phone,
-                                row.name,
-                                row.category,
-                                row.location,
-                                row.price,
-                                row.description,
-                                row.image
-                            ],
-                            (insertErr) => {
-
-                                if (insertErr) {
-                                    return reject(insertErr);
-                                }
-
-                                insertRow(index + 1)
-                                    .then(resolve)
-                                    .catch(reject);
+                                return resolve();
 
                             }
-                        );
 
-                    });
+
+                            const row =
+                                validRows[index];
+
+                            const equipmentId =
+                                generateEquipmentId(index);
+
+
+                            db.run(
+
+                                `
+                                INSERT INTO equipment
+                                (
+                                    equipment_id,
+                                    owner_id,
+                                    owner_name,
+                                    owner_phone,
+                                    name,
+                                    category,
+                                    location,
+                                    price,
+                                    description,
+                                    image,
+                                    status
+                                )
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending')
+                                `,
+
+                                [
+                                    equipmentId,
+                                    owner.id,
+                                    owner.name,
+                                    owner.phone,
+                                    row.name,
+                                    row.category,
+                                    row.location,
+                                    row.price,
+                                    row.description,
+                                    row.image
+                                ],
+
+                                (insertErr) => {
+
+                                    if (insertErr) {
+
+                                        return reject(
+                                            insertErr
+                                        );
+
+                                    }
+
+
+                                    insertRow(
+                                        index + 1
+                                    )
+                                        .then(resolve)
+                                        .catch(reject);
+
+                                }
+
+                            );
+
+                        }
+                    );
 
                 };
 
@@ -726,35 +1481,56 @@ app.post("/api/equipment/bulk", async (req, res) => {
                     await insertRow(0);
 
                     res.json({
+
                         success: true,
+
                         message:
                             `${validRows.length} equipment records submitted successfully.`,
-                        inserted: validRows.length,
-                        status: "Pending"
+
+                        inserted:
+                            validRows.length,
+
+                        status:
+                            "Pending"
+
                     });
 
                 } catch (insertError) {
 
-                    console.error("Bulk insert error:", insertError);
+                    console.error(
+                        "Bulk insert error:",
+                        insertError
+                    );
 
                     res.status(500).json({
+
                         success: false,
+
                         message:
                             "Bulk upload failed while saving equipment."
+
                     });
 
                 }
 
             }
+
         );
 
     } catch (error) {
 
-        console.error("Bulk upload error:", error);
+        console.error(
+            "Bulk upload error:",
+            error
+        );
 
         res.status(500).json({
+
             success: false,
-            message: "Server error during bulk upload."
+
+            message:
+                "Server error during bulk upload."
+
         });
 
     }
@@ -768,67 +1544,102 @@ app.post("/api/equipment/bulk", async (req, res) => {
 
 app.get("/api/equipment", (req, res) => {
 
-    const search = cleanValue(req.query.search);
-    const category = cleanValue(req.query.category);
-    const location = cleanValue(req.query.location);
+    const search =
+        cleanValue(req.query.search);
+
+    const category =
+        cleanValue(req.query.category);
+
+    const location =
+        cleanValue(req.query.location);
+
 
     let sql = `
+
         SELECT *
         FROM equipment
         WHERE status = 'Approved'
+
     `;
 
     const params = [];
 
+
     if (search) {
 
         sql += `
+
             AND (
                 name LIKE ?
                 OR category LIKE ?
                 OR location LIKE ?
                 OR description LIKE ?
             )
+
         `;
 
-        const searchValue = `%${search}%`;
+        const searchValue =
+            `%${search}%`;
+
 
         params.push(
+
             searchValue,
+
             searchValue,
+
             searchValue,
+
             searchValue
+
         );
 
     }
 
+
     if (category) {
 
         sql += `
+
             AND category LIKE ?
+
         `;
 
-        params.push(`%${category}%`);
+        params.push(
+            `%${category}%`
+        );
 
     }
+
 
     if (location) {
 
         sql += `
+
             AND location LIKE ?
+
         `;
 
-        params.push(`%${location}%`);
+        params.push(
+            `%${location}%`
+        );
 
     }
 
+
     sql += `
+
         ORDER BY created_at DESC
+
     `;
 
+
     db.all(
+
         sql,
+
         params,
+
         (err, rows) => {
 
             if (err) {
@@ -836,18 +1647,27 @@ app.get("/api/equipment", (req, res) => {
                 console.error(err);
 
                 return res.status(500).json({
+
                     success: false,
-                    message: "Could not load equipment."
+
+                    message:
+                        "Could not load equipment."
+
                 });
 
             }
 
+
             res.json({
+
                 success: true,
+
                 equipment: rows
+
             });
 
         }
+
     );
 
 });
@@ -860,12 +1680,15 @@ app.get("/api/equipment", (req, res) => {
 app.get("/api/admin/equipment", (req, res) => {
 
     db.all(
+
         `
         SELECT *
         FROM equipment
         ORDER BY created_at DESC
         `,
+
         [],
+
         (err, rows) => {
 
             if (err) {
@@ -873,18 +1696,27 @@ app.get("/api/admin/equipment", (req, res) => {
                 console.error(err);
 
                 return res.status(500).json({
+
                     success: false,
-                    message: "Could not load admin equipment."
+
+                    message:
+                        "Could not load admin equipment."
+
                 });
 
             }
 
+
             res.json({
+
                 success: true,
+
                 equipment: rows
+
             });
 
         }
+
     );
 
 });
@@ -896,15 +1728,20 @@ app.get("/api/admin/equipment", (req, res) => {
 
 app.put("/api/admin/equipment/:id/approve", (req, res) => {
 
-    const id = req.params.id;
+    const id =
+        req.params.id;
+
 
     db.run(
+
         `
         UPDATE equipment
         SET status = 'Approved'
         WHERE id = ?
         `,
+
         [id],
+
         function (err) {
 
             if (err) {
@@ -912,18 +1749,28 @@ app.put("/api/admin/equipment/:id/approve", (req, res) => {
                 console.error(err);
 
                 return res.status(500).json({
+
                     success: false,
-                    message: "Approval failed."
+
+                    message:
+                        "Approval failed."
+
                 });
 
             }
 
+
             res.json({
+
                 success: true,
-                message: "Equipment approved successfully."
+
+                message:
+                    "Equipment approved successfully."
+
             });
 
         }
+
     );
 
 });
@@ -935,15 +1782,20 @@ app.put("/api/admin/equipment/:id/approve", (req, res) => {
 
 app.put("/api/admin/equipment/:id/reject", (req, res) => {
 
-    const id = req.params.id;
+    const id =
+        req.params.id;
+
 
     db.run(
+
         `
         UPDATE equipment
         SET status = 'Rejected'
         WHERE id = ?
         `,
+
         [id],
+
         function (err) {
 
             if (err) {
@@ -951,18 +1803,28 @@ app.put("/api/admin/equipment/:id/reject", (req, res) => {
                 console.error(err);
 
                 return res.status(500).json({
+
                     success: false,
-                    message: "Rejection failed."
+
+                    message:
+                        "Rejection failed."
+
                 });
 
             }
 
+
             res.json({
+
                 success: true,
-                message: "Equipment rejected."
+
+                message:
+                    "Equipment rejected."
+
             });
 
         }
+
     );
 
 });
@@ -974,15 +1836,20 @@ app.put("/api/admin/equipment/:id/reject", (req, res) => {
 
 app.put("/api/admin/equipment/:id/review", (req, res) => {
 
-    const id = req.params.id;
+    const id =
+        req.params.id;
+
 
     db.run(
+
         `
         UPDATE equipment
         SET status = 'Under Review'
         WHERE id = ?
         `,
+
         [id],
+
         function (err) {
 
             if (err) {
@@ -990,18 +1857,28 @@ app.put("/api/admin/equipment/:id/review", (req, res) => {
                 console.error(err);
 
                 return res.status(500).json({
+
                     success: false,
-                    message: "Review status update failed."
+
+                    message:
+                        "Review status update failed."
+
                 });
 
             }
 
+
             res.json({
+
                 success: true,
-                message: "Equipment marked as Under Review."
+
+                message:
+                    "Equipment marked as Under Review."
+
             });
 
         }
+
     );
 
 });
@@ -1013,14 +1890,19 @@ app.put("/api/admin/equipment/:id/review", (req, res) => {
 
 app.delete("/api/admin/equipment/:id", (req, res) => {
 
-    const id = req.params.id;
+    const id =
+        req.params.id;
+
 
     db.run(
+
         `
         DELETE FROM equipment
         WHERE id = ?
         `,
+
         [id],
+
         function (err) {
 
             if (err) {
@@ -1028,18 +1910,28 @@ app.delete("/api/admin/equipment/:id", (req, res) => {
                 console.error(err);
 
                 return res.status(500).json({
+
                     success: false,
-                    message: "Equipment deletion failed."
+
+                    message:
+                        "Equipment deletion failed."
+
                 });
 
             }
 
+
             res.json({
+
                 success: true,
-                message: "Equipment deleted successfully."
+
+                message:
+                    "Equipment deleted successfully."
+
             });
 
         }
+
     );
 
 });
@@ -1051,14 +1943,30 @@ app.delete("/api/admin/equipment/:id", (req, res) => {
 
 app.post("/api/rental-requests", (req, res) => {
 
-    const equipmentId = cleanValue(req.body.equipmentId);
-    const customerName = cleanValue(req.body.customerName);
-    const customerPhone = cleanValue(req.body.customerPhone);
-    const companyName = cleanValue(req.body.companyName);
-    const requiredLocation = cleanValue(req.body.requiredLocation);
-    const startDate = cleanValue(req.body.startDate);
-    const endDate = cleanValue(req.body.endDate);
-    const notes = cleanValue(req.body.notes);
+    const equipmentId =
+        cleanValue(req.body.equipmentId);
+
+    const customerName =
+        cleanValue(req.body.customerName);
+
+    const customerPhone =
+        cleanValue(req.body.customerPhone);
+
+    const companyName =
+        cleanValue(req.body.companyName);
+
+    const requiredLocation =
+        cleanValue(req.body.requiredLocation);
+
+    const startDate =
+        cleanValue(req.body.startDate);
+
+    const endDate =
+        cleanValue(req.body.endDate);
+
+    const notes =
+        cleanValue(req.body.notes);
+
 
     if (
         !equipmentId ||
@@ -1070,20 +1978,28 @@ app.post("/api/rental-requests", (req, res) => {
     ) {
 
         return res.status(400).json({
+
             success: false,
-            message: "Please provide all required rental details."
+
+            message:
+                "Please provide all required rental details."
+
         });
 
     }
 
+
     db.get(
+
         `
         SELECT *
         FROM equipment
         WHERE equipment_id = ?
         AND status = 'Approved'
         `,
+
         [equipmentId],
+
         (err, equipment) => {
 
             if (err) {
@@ -1091,25 +2007,37 @@ app.post("/api/rental-requests", (req, res) => {
                 console.error(err);
 
                 return res.status(500).json({
+
                     success: false,
-                    message: "Database error."
+
+                    message:
+                        "Database error."
+
                 });
 
             }
+
 
             if (!equipment) {
 
                 return res.status(404).json({
+
                     success: false,
+
                     message:
                         "This equipment is not available for rental."
+
                 });
 
             }
 
-            const requestId = generateRequestId();
+
+            const requestId =
+                generateRequestId();
+
 
             db.run(
+
                 `
                 INSERT INTO rental_requests
                 (
@@ -1126,6 +2054,7 @@ app.post("/api/rental-requests", (req, res) => {
                 )
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending')
                 `,
+
                 [
                     requestId,
                     equipmentId,
@@ -1137,6 +2066,7 @@ app.post("/api/rental-requests", (req, res) => {
                     endDate,
                     notes
                 ],
+
                 function (insertErr) {
 
                     if (insertErr) {
@@ -1144,23 +2074,34 @@ app.post("/api/rental-requests", (req, res) => {
                         console.error(insertErr);
 
                         return res.status(500).json({
+
                             success: false,
-                            message: "Rental request failed."
+
+                            message:
+                                "Rental request failed."
+
                         });
 
                     }
 
+
                     res.json({
+
                         success: true,
+
                         message:
                             "Rental request submitted successfully.",
+
                         requestId
+
                     });
 
                 }
+
             );
 
         }
+
     );
 
 });
@@ -1172,24 +2113,34 @@ app.post("/api/rental-requests", (req, res) => {
 
 app.get("/api/rental-requests/track", (req, res) => {
 
-    const requestId = cleanValue(req.query.requestId);
+    const requestId =
+        cleanValue(req.query.requestId);
+
 
     if (!requestId) {
 
         return res.status(400).json({
+
             success: false,
-            message: "Request ID is required."
+
+            message:
+                "Request ID is required."
+
         });
 
     }
 
+
     db.get(
+
         `
         SELECT *
         FROM rental_requests
         WHERE request_id = ?
         `,
+
         [requestId],
+
         (err, request) => {
 
             if (err) {
@@ -1197,27 +2148,41 @@ app.get("/api/rental-requests/track", (req, res) => {
                 console.error(err);
 
                 return res.status(500).json({
+
                     success: false,
-                    message: "Could not track request."
+
+                    message:
+                        "Could not track request."
+
                 });
 
             }
+
 
             if (!request) {
 
                 return res.status(404).json({
+
                     success: false,
-                    message: "Rental request not found."
+
+                    message:
+                        "Rental request not found."
+
                 });
 
             }
 
+
             res.json({
+
                 success: true,
+
                 request
+
             });
 
         }
+
     );
 
 });
@@ -1230,6 +2195,7 @@ app.get("/api/rental-requests/track", (req, res) => {
 app.get("/api/admin/rental-requests", (req, res) => {
 
     db.all(
+
         `
         SELECT
             rental_requests.*,
@@ -1244,7 +2210,9 @@ app.get("/api/admin/rental-requests", (req, res) => {
             ON rental_requests.equipment_id = equipment.equipment_id
         ORDER BY rental_requests.created_at DESC
         `,
+
         [],
+
         (err, rows) => {
 
             if (err) {
@@ -1252,18 +2220,27 @@ app.get("/api/admin/rental-requests", (req, res) => {
                 console.error(err);
 
                 return res.status(500).json({
+
                     success: false,
-                    message: "Could not load rental requests."
+
+                    message:
+                        "Could not load rental requests."
+
                 });
 
             }
 
+
             res.json({
+
                 success: true,
+
                 requests: rows
+
             });
 
         }
+
     );
 
 });
@@ -1275,14 +2252,19 @@ app.get("/api/admin/rental-requests", (req, res) => {
 
 app.delete("/api/admin/rental-requests/:id", (req, res) => {
 
-    const id = req.params.id;
+    const id =
+        req.params.id;
+
 
     db.run(
+
         `
         DELETE FROM rental_requests
         WHERE id = ?
         `,
+
         [id],
+
         function (err) {
 
             if (err) {
@@ -1290,18 +2272,28 @@ app.delete("/api/admin/rental-requests/:id", (req, res) => {
                 console.error(err);
 
                 return res.status(500).json({
+
                     success: false,
-                    message: "Request deletion failed."
+
+                    message:
+                        "Request deletion failed."
+
                 });
 
             }
 
+
             res.json({
+
                 success: true,
-                message: "Rental request deleted."
+
+                message:
+                    "Rental request deleted."
+
             });
 
         }
+
     );
 
 });
@@ -1313,16 +2305,21 @@ app.delete("/api/admin/rental-requests/:id", (req, res) => {
 
 app.get("/api/owner/:ownerId/equipment", (req, res) => {
 
-    const ownerId = req.params.ownerId;
+    const ownerId =
+        req.params.ownerId;
+
 
     db.all(
+
         `
         SELECT *
         FROM equipment
         WHERE owner_id = ?
         ORDER BY created_at DESC
         `,
+
         [ownerId],
+
         (err, rows) => {
 
             if (err) {
@@ -1330,18 +2327,27 @@ app.get("/api/owner/:ownerId/equipment", (req, res) => {
                 console.error(err);
 
                 return res.status(500).json({
+
                     success: false,
-                    message: "Could not load owner equipment."
+
+                    message:
+                        "Could not load owner equipment."
+
                 });
 
             }
 
+
             res.json({
+
                 success: true,
+
                 equipment: rows
+
             });
 
         }
+
     );
 
 });
@@ -1353,9 +2359,12 @@ app.get("/api/owner/:ownerId/equipment", (req, res) => {
 
 app.get("/api/owner/:ownerId/requests", (req, res) => {
 
-    const ownerId = req.params.ownerId;
+    const ownerId =
+        req.params.ownerId;
+
 
     db.all(
+
         `
         SELECT
             rental_requests.*,
@@ -1370,7 +2379,9 @@ app.get("/api/owner/:ownerId/requests", (req, res) => {
         WHERE equipment.owner_id = ?
         ORDER BY rental_requests.created_at DESC
         `,
+
         [ownerId],
+
         (err, rows) => {
 
             if (err) {
@@ -1378,18 +2389,27 @@ app.get("/api/owner/:ownerId/requests", (req, res) => {
                 console.error(err);
 
                 return res.status(500).json({
+
                     success: false,
-                    message: "Could not load owner requests."
+
+                    message:
+                        "Could not load owner requests."
+
                 });
 
             }
 
+
             res.json({
+
                 success: true,
+
                 requests: rows
+
             });
 
         }
+
     );
 
 });
@@ -1401,15 +2421,20 @@ app.get("/api/owner/:ownerId/requests", (req, res) => {
 
 app.put("/api/rental-requests/:id/confirm", (req, res) => {
 
-    const id = req.params.id;
+    const id =
+        req.params.id;
+
 
     db.run(
+
         `
         UPDATE rental_requests
         SET status = 'Confirmed'
         WHERE id = ?
         `,
+
         [id],
+
         function (err) {
 
             if (err) {
@@ -1417,18 +2442,28 @@ app.put("/api/rental-requests/:id/confirm", (req, res) => {
                 console.error(err);
 
                 return res.status(500).json({
+
                     success: false,
-                    message: "Could not confirm request."
+
+                    message:
+                        "Could not confirm request."
+
                 });
 
             }
 
+
             res.json({
+
                 success: true,
-                message: "Rental request confirmed."
+
+                message:
+                    "Rental request confirmed."
+
             });
 
         }
+
     );
 
 });
@@ -1440,15 +2475,20 @@ app.put("/api/rental-requests/:id/confirm", (req, res) => {
 
 app.put("/api/rental-requests/:id/reject", (req, res) => {
 
-    const id = req.params.id;
+    const id =
+        req.params.id;
+
 
     db.run(
+
         `
         UPDATE rental_requests
         SET status = 'Rejected'
         WHERE id = ?
         `,
+
         [id],
+
         function (err) {
 
             if (err) {
@@ -1456,18 +2496,28 @@ app.put("/api/rental-requests/:id/reject", (req, res) => {
                 console.error(err);
 
                 return res.status(500).json({
+
                     success: false,
-                    message: "Could not reject request."
+
+                    message:
+                        "Could not reject request."
+
                 });
 
             }
 
+
             res.json({
+
                 success: true,
-                message: "Rental request rejected."
+
+                message:
+                    "Rental request rejected."
+
             });
 
         }
+
     );
 
 });
@@ -1479,15 +2529,20 @@ app.put("/api/rental-requests/:id/reject", (req, res) => {
 
 app.put("/api/rental-requests/:id/complete", (req, res) => {
 
-    const id = req.params.id;
+    const id =
+        req.params.id;
+
 
     db.run(
+
         `
         UPDATE rental_requests
         SET status = 'Completed'
         WHERE id = ?
         `,
+
         [id],
+
         function (err) {
 
             if (err) {
@@ -1495,18 +2550,302 @@ app.put("/api/rental-requests/:id/complete", (req, res) => {
                 console.error(err);
 
                 return res.status(500).json({
+
                     success: false,
-                    message: "Could not complete rental."
+
+                    message:
+                        "Could not complete rental."
+
                 });
 
             }
 
+
             res.json({
+
                 success: true,
-                message: "Rental marked as completed."
+
+                message:
+                    "Rental marked as completed."
+
             });
 
         }
+
+    );
+
+});
+
+
+/* =========================================================
+   PUBLIC RATINGS / REVIEWS
+========================================================= */
+
+/*
+ * Anyone can submit a review.
+ *
+ * Required:
+ * - Customer name
+ * - Rating 1 to 5
+ * - Review
+ *
+ * No:
+ * - Phone
+ * - Login
+ * - Rental completion
+ * - Admin approval
+ */
+
+app.post("/api/ratings", (req, res) => {
+
+    const customerName =
+        cleanValue(req.body.customerName);
+
+    const rating =
+        Number(req.body.rating);
+
+    const review =
+        cleanValue(req.body.review);
+
+
+    if (!customerName) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Please enter your name."
+
+        });
+
+    }
+
+
+    if (
+        customerName.length < 2 ||
+        customerName.length > 100
+    ) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Name must be between 2 and 100 characters."
+
+        });
+
+    }
+
+
+    if (
+        !Number.isInteger(rating) ||
+        rating < 1 ||
+        rating > 5
+    ) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Please select a rating between 1 and 5 stars."
+
+        });
+
+    }
+
+
+    if (!review) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Please write a review."
+
+        });
+
+    }
+
+
+    if (review.length < 3) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Review is too short."
+
+        });
+
+    }
+
+
+    if (review.length > 1000) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message:
+                "Review cannot be longer than 1000 characters."
+
+        });
+
+    }
+
+
+    db.run(
+
+        `
+        INSERT INTO ratings
+        (
+            customer_name,
+            rating,
+            review
+        )
+        VALUES (?, ?, ?)
+        `,
+
+        [
+            customerName,
+            rating,
+            review
+        ],
+
+        function (err) {
+
+            if (err) {
+
+                console.error(
+                    "Rating insert error:",
+                    err
+                );
+
+                return res.status(500).json({
+
+                    success: false,
+
+                    message:
+                        "Your review could not be submitted."
+
+                });
+
+            }
+
+
+            res.json({
+
+                success: true,
+
+                message:
+                    "Thank you! Your review has been published successfully.",
+
+                rating: {
+
+                    id: this.lastID,
+
+                    customer_name:
+                        customerName,
+
+                    rating,
+
+                    review
+
+                }
+
+            });
+
+        }
+
+    );
+
+});
+
+
+/* =========================================================
+   GET PUBLIC RATINGS / REVIEWS
+========================================================= */
+
+app.get("/api/ratings", (req, res) => {
+
+    db.all(
+
+        `
+        SELECT
+            id,
+            customer_name,
+            rating,
+            review,
+            created_at
+        FROM ratings
+        ORDER BY created_at DESC
+        `,
+
+        [],
+
+        (err, rows) => {
+
+            if (err) {
+
+                console.error(
+                    "Ratings load error:",
+                    err
+                );
+
+                return res.status(500).json({
+
+                    success: false,
+
+                    message:
+                        "Could not load reviews."
+
+                });
+
+            }
+
+
+            const reviews =
+                Array.isArray(rows)
+                    ? rows
+                    : [];
+
+
+            const total =
+                reviews.length;
+
+
+            const average =
+                total
+                    ? (
+                        reviews.reduce(
+                            (sum, item) =>
+                                sum + Number(item.rating || 0),
+                            0
+                        ) / total
+                    )
+                        .toFixed(1)
+                    : "0.0";
+
+
+            res.json({
+
+                success: true,
+
+                average: Number(average),
+
+                total,
+
+                ratings: reviews
+
+            });
+
+        }
+
     );
 
 });
@@ -1518,18 +2857,30 @@ app.put("/api/rental-requests/:id/complete", (req, res) => {
 
 app.get("/pages/:file", (req, res) => {
 
-    const fileName = path.basename(req.params.file);
-    const filePath = path.join(PAGES_DIR, fileName);
+    const fileName =
+        path.basename(req.params.file);
 
-    res.sendFile(filePath, (err) => {
+    const filePath =
+        path.join(PAGES_DIR, fileName);
 
-        if (err) {
 
-            res.status(404).send("Page not found.");
+    res.sendFile(
+
+        filePath,
+
+        (err) => {
+
+            if (err) {
+
+                res.status(404).send(
+                    "Page not found."
+                );
+
+            }
 
         }
 
-    });
+    );
 
 });
 
@@ -1541,7 +2892,12 @@ app.get("/pages/:file", (req, res) => {
 app.get("/", (req, res) => {
 
     res.sendFile(
-        path.join(ROOT_DIR, "index.html"),
+
+        path.join(
+            ROOT_DIR,
+            "index.html"
+        ),
+
         (err) => {
 
             if (err) {
@@ -1553,6 +2909,7 @@ app.get("/", (req, res) => {
             }
 
         }
+
     );
 
 });
@@ -1565,8 +2922,12 @@ app.get("/", (req, res) => {
 app.use("/api", (req, res) => {
 
     res.status(404).json({
+
         success: false,
-        message: "API endpoint not found."
+
+        message:
+            "API endpoint not found."
+
     });
 
 });
@@ -1579,12 +2940,31 @@ app.use("/api", (req, res) => {
 app.listen(PORT, () => {
 
     console.log("");
-    console.log("==============================================");
-    console.log("   SHADAB CITY RENTAL SERVER");
-    console.log("==============================================");
-    console.log(`   Server running on port ${PORT}`);
-    console.log(`   http://localhost:${PORT}`);
-    console.log("==============================================");
+
+    console.log(
+        "=============================================="
+    );
+
+    console.log(
+        "   SHADAB CITY RENTAL SERVER"
+    );
+
+    console.log(
+        "=============================================="
+    );
+
+    console.log(
+        `   Server running on port ${PORT}`
+    );
+
+    console.log(
+        `   http://localhost:${PORT}`
+    );
+
+    console.log(
+        "=============================================="
+    );
+
     console.log("");
 
 });

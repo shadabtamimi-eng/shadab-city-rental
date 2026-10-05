@@ -1,4 +1,13 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://shadab-city-rental-2.onrender.com/sitemap.xml
+Disallow: /pages/admin-login.html
+Disallow: /pages/admin.html
+Disallow: /pages/owner-dashboard.html
+Disallow: /pages/owner-login.html
+Disallow: /pages/owner-register.html
+Disallow: /pages/customer-request.html
+Disallow: /pages/rental-request.html
+Disallow: /pages/request-confirmation.html
+
+Sitemap: https://shadabcityrental.com/sitemap.xml

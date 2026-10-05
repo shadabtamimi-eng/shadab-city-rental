@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Rate SHADAB CITY RENTAL | Customer Reviews</title>
+
+    <meta
+        name="description"
+        content="Share your experience with SHADAB CITY RENTAL. Rate our equipment rental marketplace and leave a customer review.">
+
+    <meta
+        name="robots"
+        content="index, follow">
+
+    <link
+        rel="canonical"
+        href="https://shadabcityrental.com/pages/rating.html">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #050b14;
+            color: #172033;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input,
+        textarea {
+            font-family: inherit;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        header {
+            background: rgba(5, 11, 20, .96);
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+
+        .header-inner {
+            min-height: 76px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+
+            color: white;
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: .8px;
+        }
+
+        .logo-box {
+            width: 40px;
+            height: 40px;
+
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #f59e0b;
+            font-size: 14px;
+            font-weight: 900;
+        }
+
+        .logo span {
+            color: #f59e0b;
+        }
+
+        .back-link {
+            color: #cbd5e1;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .back-link:hover {
+            color: #f59e0b;
+        }
+
+        .hero {
+            min-height: 330px;
+
+            display: flex;
+            align-items: center;
+
+            background:
+                radial-gradient(
+                    circle at 80% 40%,
+                    rgba(245,158,11,.12),
+                    transparent 30%
+                ),
+                #050b14;
+        }
+
+        .hero-content {
+            text-align: center;
+            padding: 70px 0;
+        }
+
+        .eyebrow {
+            color: #f59e0b;
+
+            font-size: 11px;
+            font-weight: 900;
+
+            letter-spacing: 2px;
+        }
+
+        .hero h1 {
+            margin: 12px 0 15px;
+
+            color: white;
+
+            font-size: clamp(38px, 6vw, 62px);
+
+            line-height: 1.05;
+        }
+
+        .hero p {
+            max-width: 650px;
+
+            margin: auto;
+
+            color: #aeb9c9;
+
+            font-size: 16px;
+        }
+
+        .main {
+            padding: 70px 0 100px;
+
+            background: #f6f8fb;
+        }
+
+        .rating-layout {
+            display: grid;
+
+            grid-template-columns: 390px 1fr;
+
+            gap: 25px;
+
+            align-items: start;
+        }
+
+        .card {
+            background: white;
+
+            border: 1px solid #e1e6ed;
+
+            border-radius: 13px;
+
+            padding: 28px;
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,.06);
+        }
+
+        .card h2 {
+            color: #111827;
+            font-size: 22px;
+            margin-bottom: 7px;
+        }
+
+        .card-description {
+            color: #6b7280;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .field {
+            margin-bottom: 18px;
+        }
+
+        .field label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #374151;
+
+            font-size: 11px;
+            font-weight: 900;
+
+            letter-spacing: .5px;
+        }
+
+        .field input,
+        .field textarea {
+            width: 100%;
+
+            border: 1px solid #d8dee7;
+            border-radius: 8px;
+
+            padding: 12px 13px;
+
+            background: white;
+
+            color: #172033;
+
+            outline: none;
+
+            font-size: 14px;
+        }
+
+        .field input {
+            height: 46px;
+        }
+
+        .field textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .field input:focus,
+        .field textarea:focus {
+            border-color: #f59e0b;
+
+            box-shadow:
+                0 0 0 3px rgba(245,158,11,.08);
+        }
+
+        .stars {
+            display: flex;
+            gap: 5px;
+
+            margin-top: 5px;
+        }
+
+        .star {
+            width: 48px;
+            height: 45px;
+
+            border: 1px solid #d8dee7;
+            border-radius: 7px;
+
+            background: white;
+
+            color: #cbd5e1;
+
+            font-size: 25px;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .star:hover {
+            border-color: #f59e0b;
+            color: #f59e0b;
+        }
+
+        .star.selected {
+            border-color: #f59e0b;
+            background: #fff7e6;
+            color: #f59e0b;
+        }
+
+        .rating-label {
+            min-height: 20px;
+
+            margin-top: 7px;
+
+            color: #6b7280;
+
+            font-size: 12px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            height: 48px;
+
+            border: none;
+            border-radius: 7px;
+
+            background: #f59e0b;
+            color: #111827;
+
+            font-size: 13px;
+            font-weight: 900;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .submit-btn:hover {
+            background: #fbbf24;
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .message {
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 12px 14px;
+
+            border-radius: 7px;
+
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .message.success {
+            display: block;
+
+            background: #dcfce7;
+            color: #166534;
+
+            border: 1px solid #bbf7d0;
+        }
+
+        .message.error {
+            display: block;
+
+            background: #fee2e2;
+            color: #991b1b;
+
+            border: 1px solid #fecaca;
+        }
+
+        .summary {
+            display: flex;
+
+            align-items: center;
+
+            gap: 25px;
+
+            margin-bottom: 20px;
+        }
+
+        .average {
+            min-width: 130px;
+
+            text-align: center;
+
+            padding: 20px;
+
+            border-radius: 11px;
+
+            background: #fff7e6;
+
+            border: 1px solid #fde68a;
+        }
+
+        .average-number {
+            display: block;
+
+            color: #d97706;
+
+            font-size: 42px;
+            font-weight: 900;
+
+            line-height: 1;
+        }
+
+        .average-stars {
+            margin-top: 8px;
+
+            color: #f59e0b;
+
+            font-size: 20px;
+
+            letter-spacing: 2px;
+        }
+
+        .average-text {
+            margin-top: 5px;
+
+            color: #6b7280;
+
+            font-size: 11px;
+        }
+
+        .summary h2 {
+            margin-bottom: 5px;
+        }
+
+        .summary p {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .reviews {
+            display: grid;
+            gap: 13px;
+        }
+
+        .review {
+            background: white;
+
+            border: 1px solid #e1e6ed;
+
+            border-radius: 10px;
+
+            padding: 19px 20px;
+        }
+
+        .review-top {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+        }
+
+        .review-name {
+            color: #111827;
+            font-size: 14px;
+            font-weight: 900;
+        }
+
+        .review-stars {
+            color: #f59e0b;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+
+        .review-text {
+            margin-top: 8px;
+
+            color: #4b5563;
+
+            font-size: 13px;
+
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .review-date {
+            margin-top: 10px;
+
+            color: #9ca3af;
+
+            font-size: 10px;
+        }
+
+        .empty-reviews {
+            padding: 45px 20px;
+
+            text-align: center;
+
+            background: white;
+
+            border: 1px dashed #cbd5e1;
+
+            border-radius: 10px;
+        }
+
+        .empty-reviews h3 {
+            color: #172033;
+            margin-bottom: 6px;
+        }
+
+        .empty-reviews p {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        footer {
+            background: #03070d;
+            color: #8f99a8;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 12px;
+        }
+
+        @media (max-width: 800px) {
+
+            .rating-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .summary {
+                align-items: flex-start;
+            }
+
+        }
+
+        @media (max-width: 500px) {
+
+            .container {
+                width: 92%;
+            }
+
+            .header-inner {
+                min-height: 68px;
+            }
+
+            .logo {
+                font-size: 15px;
+            }
+
+            .logo-box {
+                width: 35px;
+                height: 35px;
+            }
+
+            .back-link {
+                font-size: 11px;
+            }
+
+            .hero-content {
+                padding: 55px 0;
+            }
+
+            .hero h1 {
+                font-size: 39px;
+            }
+
+            .card {
+                padding: 21px;
+            }
+
+            .star {
+                flex: 1;
+            }
+
+            .summary {
+                flex-direction: column;
+            }
+
+            .average {
+                width: 100%;
+            }
+
+            .review-top {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <div class="container header-inner">
+
+            <a
+                href="../index.html"
+                class="logo">
+
+                <div class="logo-box">
+                    SC
+                </div>
+
+                <div>
+                    SHADAB <span>CITY RENTAL</span>
+                </div>
+
+            </a>
+
+            <a
+                href="../index.html"
+                class="back-link">
+
+                ← BACK TO HOME
+
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <section class="hero">
+
+        <div class="container hero-content">
+
+            <div class="eyebrow">
+                CUSTOMER EXPERIENCE
+            </div>
+
+            <h1>
+                RATE US
+            </h1>
+
+            <p>
+                Share your experience with
+                SHADAB CITY RENTAL and help others
+                understand our marketplace.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <main class="main">
+
+        <div class="container">
+
+            <div class="rating-layout">
+
+                <!-- SUBMIT REVIEW -->
+
+                <div class="card">
+
+                    <h2>
+                        Share Your Experience
+                    </h2>
+
+                    <p class="card-description">
+                        Your review will appear on the website
+                        immediately after submission.
+                    </p>
+
+                    <form
+                        id="ratingForm"
+                        onsubmit="submitRating(event)">
+
+                        <div class="field">
+
+                            <label>
+                                YOUR NAME
+                            </label>
+
+                            <input
+                                id="customerName"
+                                type="text"
+                                maxlength="100"
+                                placeholder="Enter your name"
+                                required>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>
+                                YOUR RATING
+                            </label>
+
+                            <div
+                                class="stars"
+                                id="starSelector">
+
+                                <button
+                                    type="button"
+                                    class="star"
+                                    data-rating="1"
+                                    onclick="selectRating(1)">
+                                    ★
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="star"
+                                    data-rating="2"
+                                    onclick="selectRating(2)">
+                                    ★
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="star"
+                                    data-rating="3"
+                                    onclick="selectRating(3)">
+                                    ★
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="star"
+                                    data-rating="4"
+                                    onclick="selectRating(4)">
+                                    ★
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="star"
+                                    data-rating="5"
+                                    onclick="selectRating(5)">
+                                    ★
+                                </button>
+
+                            </div>
+
+                            <div
+                                id="ratingLabel"
+                                class="rating-label">
+
+                                Select your rating.
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>
+                                YOUR REVIEW
+                            </label>
+
+                            <textarea
+                                id="reviewText"
+                                maxlength="1000"
+                                placeholder="Tell us about your experience..."
+                                required></textarea>
+
+                        </div>
+
+
+                        <button
+                            id="submitButton"
+                            type="submit"
+                            class="submit-btn">
+
+                            PUBLISH REVIEW →
+
+                        </button>
+
+
+                        <div
+                            id="formMessage"
+                            class="message">
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+                <!-- REVIEWS -->
+
+                <div>
+
+                    <div class="card summary">
+
+                        <div class="average">
+
+                            <span
+                                id="averageNumber"
+                                class="average-number">
+                                0.0
+                            </span>
+
+                            <div
+                                id="averageStars"
+                                class="average-stars">
+                                ☆☆☆☆☆
+                            </div>
+
+                            <div class="average-text">
+                                Average Rating
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Customer Reviews
+                            </h2>
+
+                            <p>
+                                <strong id="reviewCount">
+                                    0
+                                </strong>
+                                reviews published on
+                                SHADAB CITY RENTAL.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="reviewsList"
+                        class="reviews">
+
+                        <div class="empty-reviews">
+
+                            <h3>
+                                LOADING REVIEWS...
+                            </h3>
+
+                            <p>
+                                Loading customer experiences.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+
+        <div class="container">
+
+            <p>
+                © 2026 SHADAB CITY RENTAL.
+                All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script>
+
+        const API_BASE =
+            window.location.hostname === "localhost" ||
+            window.location.hostname === "127.0.0.1"
+                ? "http://localhost:3000"
+                : window.location.origin;
+
+
+        let selectedRating = 0;
+
+
+        /* =====================================================
+           ESCAPE HTML
+        ===================================================== */
+
+        function escapeHTML(value) {
+
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+        /* =====================================================
+           SELECT STAR RATING
+        ===================================================== */
+
+        function selectRating(rating) {
+
+            selectedRating = rating;
+
+            const stars =
+                document.querySelectorAll(".star");
+
+            stars.forEach(function(star) {
+
+                const value =
+                    Number(
+                        star.dataset.rating
+                    );
+
+                if (value <= rating) {
+
+                    star.classList.add(
+                        "selected"
+                    );
+
+                } else {
+
+                    star.classList.remove(
+                        "selected"
+                    );
+
+                }
+
+            });
+
+
+            const labels = {
+
+                1: "Very Poor",
+
+                2: "Poor",
+
+                3: "Average",
+
+                4: "Good",
+
+                5: "Excellent"
+
+            };
+
+
+            document.getElementById(
+                "ratingLabel"
+            ).textContent =
+                labels[rating] +
+                " — " +
+                rating +
+                " out of 5 stars.";
+
+        }
+
+
+        /* =====================================================
+           DISPLAY STARS
+        ===================================================== */
+
+        function displayStars(rating) {
+
+            const rounded =
+                Math.round(
+                    Number(rating) || 0
+                );
+
+            let result = "";
+
+            for (
+                let i = 1;
+                i <= 5;
+                i++
+            ) {
+
+                result +=
+                    i <= rounded
+                        ? "★"
+                        : "☆";
+
+            }
+
+            return result;
+
+        }
+
+
+        /* =====================================================
+           FORMAT DATE
+        ===================================================== */
+
+        function formatDate(value) {
+
+            if (!value) {
+                return "";
+            }
+
+            const date =
+                new Date(value);
+
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+
+                return "";
+
+            }
+
+            return date.toLocaleDateString(
+                "en-SA",
+                {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric"
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           LOAD REVIEWS
+        ===================================================== */
+
+        async function loadReviews() {
+
+            const list =
+                document.getElementById(
+                    "reviewsList"
+                );
+
+            try {
+
+                const response =
+                    await fetch(
+                        API_BASE +
+                        "/api/ratings",
+                        {
+                            method: "GET",
+                            cache: "no-store"
+                        }
+                    );
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Reviews API failed."
+                    );
+
+                }
+
+                const data =
+                    await response.json();
+
+                const reviews =
+                    Array.isArray(
+                        data.ratings
+                    )
+                        ? data.ratings
+                        : [];
+
+
+                document.getElementById(
+                    "averageNumber"
+                ).textContent =
+                    Number(
+                        data.average || 0
+                    ).toFixed(1);
+
+
+                document.getElementById(
+                    "averageStars"
+                ).textContent =
+                    displayStars(
+                        Number(
+                            data.average || 0
+                        )
+                    );
+
+
+                document.getElementById(
+                    "reviewCount"
+                ).textContent =
+                    String(
+                        data.total || reviews.length
+                    );
+
+
+                if (!reviews.length) {
+
+                    list.innerHTML = `
+
+                        <div class="empty-reviews">
+
+                            <h3>
+                                NO REVIEWS YET
+                            </h3>
+
+                            <p>
+                                Be the first person to
+                                share an experience.
+                            </p>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                list.innerHTML =
+                    reviews.map(function(item) {
+
+                        const name =
+                            escapeHTML(
+                                item.customer_name ||
+                                "Customer"
+                            );
+
+                        const review =
+                            escapeHTML(
+                                item.review ||
+                                ""
+                            );
+
+                        const rating =
+                            Number(
+                                item.rating || 0
+                            );
+
+                        const date =
+                            formatDate(
+                                item.created_at
+                            );
+
+
+                        return `
+
+                            <article class="review">
+
+                                <div class="review-top">
+
+                                    <div class="review-name">
+
+                                        ${name}
+
+                                    </div>
+
+                                    <div class="review-stars">
+
+                                        ${displayStars(rating)}
+
+                                    </div>
+
+                                </div>
+
+                                <div class="review-text">
+
+                                    ${review}
+
+                                </div>
+
+                                ${
+                                    date
+                                    ?
+                                    `
+                                    <div class="review-date">
+
+                                        ${escapeHTML(date)}
+
+                                    </div>
+                                    `
+                                    :
+                                    ""
+                                }
+
+                            </article>
+
+                        `;
+
+                    }).join("");
+
+
+            } catch (error) {
+
+                console.error(
+                    "Reviews Error:",
+                    error
+                );
+
+                document.getElementById(
+                    "averageNumber"
+                ).textContent = "0.0";
+
+                document.getElementById(
+                    "reviewCount"
+                ).textContent = "0";
+
+                list.innerHTML = `
+
+                    <div class="empty-reviews">
+
+                        <h3>
+                            REVIEWS TEMPORARILY UNAVAILABLE
+                        </h3>
+
+                        <p>
+                            Please try again shortly.
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           SUBMIT RATING
+        ===================================================== */
+
+        async function submitRating(event) {
+
+            event.preventDefault();
+
+
+            const name =
+                document.getElementById(
+                    "customerName"
+                ).value.trim();
+
+
+            const review =
+                document.getElementById(
+                    "reviewText"
+                ).value.trim();
+
+
+            const message =
+                document.getElementById(
+                    "formMessage"
+                );
+
+
+            const button =
+                document.getElementById(
+                    "submitButton"
+                );
+
+
+            message.className =
+                "message";
+
+            message.textContent = "";
+
+
+            if (!name) {
+
+                message.className =
+                    "message error";
+
+                message.textContent =
+                    "Please enter your name.";
+
+                return;
+
+            }
+
+
+            if (!selectedRating) {
+
+                message.className =
+                    "message error";
+
+                message.textContent =
+                    "Please select a star rating.";
+
+                return;
+
+            }
+
+
+            if (!review) {
+
+                message.className =
+                    "message error";
+
+                message.textContent =
+                    "Please write your review.";
+
+                return;
+
+            }
+
+
+            button.disabled = true;
+
+            button.textContent =
+                "PUBLISHING...";
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        API_BASE +
+                        "/api/ratings",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                customerName:
+                                    name,
+
+                                rating:
+                                    selectedRating,
+
+                                review:
+                                    review
+
+                            })
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Review submission failed."
+                    );
+
+                }
+
+
+                message.className =
+                    "message success";
+
+                message.textContent =
+                    "Thank you! Your review has been published successfully.";
+
+
+                document.getElementById(
+                    "ratingForm"
+                ).reset();
+
+
+                selectedRating = 0;
+
+
+                document.querySelectorAll(
+                    ".star"
+                ).forEach(function(star) {
+
+                    star.classList.remove(
+                        "selected"
+                    );
+
+                });
+
+
+                document.getElementById(
+                    "ratingLabel"
+                ).textContent =
+                    "Select your rating.";
+
+
+                await loadReviews();
+
+
+                window.scrollTo({
+
+                    top: 0,
+
+                    behavior: "smooth"
+
+                });
+
+
+            } catch (error) {
+
+                console.error(
+                    "Submit Review Error:",
+                    error
+                );
+
+                message.className =
+                    "message error";
+
+                message.textContent =
+                    error.message ||
+                    "Your review could not be submitted.";
+
+            } finally {
+
+                button.disabled = false;
+
+                button.textContent =
+                    "PUBLISH REVIEW →";
+
+            }
+
+        }
+
+
+        /* =====================================================
+           INITIALIZE
+        ===================================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            loadReviews
+        );
+
+    </script>
+
+</body>
+
+</html>
