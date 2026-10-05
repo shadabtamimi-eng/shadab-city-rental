@@ -1,0 +1,8 @@
+node_modules/
+shadab_rental.db
+shadab_rental.db-shm
+shadab_rental.db-wal
+.env
+.env.*
+!.env.example
+*.log

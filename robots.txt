@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shadab-city-rental-2.onrender.com/sitemap.xml

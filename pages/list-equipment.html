@@ -1,0 +1,2279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>List Your Equipment | SHADAB CITY RENTAL</title>
+
+    <meta
+        name="description"
+        content="List your construction, industrial and heavy equipment for rent across Saudi Arabia with SHADAB CITY RENTAL."
+    >
+
+    <meta
+        name="robots"
+        content="index, follow"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #071018,
+                    #101820,
+                    #0b1218
+                );
+
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(5, 10, 15, 0.96);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding: 18px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #f4b400;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #d8dee5;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            color: #f4b400;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 45px 20px 70px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .hero h1 span {
+            color: #f4b400;
+        }
+
+        .hero p {
+            color: #aeb8c2;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .owner-box {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 18px 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .owner-info strong {
+            color: #f4b400;
+        }
+
+        .owner-info {
+            color: #d7dce1;
+            line-height: 1.7;
+        }
+
+        .logout-btn {
+            border: 1px solid #444;
+            background: transparent;
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .mode-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .mode-btn {
+            padding: 17px;
+            border-radius: 10px;
+            border: 1px solid #303b45;
+            background: #111a22;
+            color: #dce3e8;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .mode-btn:hover {
+            border-color: #f4b400;
+        }
+
+        .mode-btn.active {
+            background: #f4b400;
+            color: #111;
+            border-color: #f4b400;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.045);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        .card h2 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .card-subtitle {
+            color: #9ca8b3;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 14px;
+            color: #d8dfe5;
+            font-weight: 600;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            border: 1px solid #33404b;
+            background: #0c141b;
+            color: #ffffff;
+            border-radius: 9px;
+            padding: 13px 14px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #f4b400;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+        }
+
+        .help {
+            font-size: 12px;
+            color: #8995a0;
+            line-height: 1.5;
+        }
+
+        .submit-btn {
+            width: 100%;
+            margin-top: 25px;
+            padding: 15px;
+            border: none;
+            border-radius: 9px;
+            background: #f4b400;
+            color: #111;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #ffc52e;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .message {
+            display: none;
+            margin-top: 20px;
+            padding: 14px;
+            border-radius: 8px;
+            line-height: 1.5;
+        }
+
+        .message.success {
+            display: block;
+            background: rgba(35, 150, 80, 0.15);
+            border: 1px solid rgba(35, 150, 80, 0.4);
+            color: #8df0b1;
+        }
+
+        .message.error {
+            display: block;
+            background: rgba(210, 50, 50, 0.15);
+            border: 1px solid rgba(210, 50, 50, 0.4);
+            color: #ff9a9a;
+        }
+
+        .bulk-tools {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+        }
+
+        .secondary-btn {
+            padding: 12px 17px;
+            border-radius: 8px;
+            border: 1px solid #3a4650;
+            background: #121c24;
+            color: #ffffff;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .secondary-btn:hover {
+            border-color: #f4b400;
+        }
+
+        .upload-area {
+            border: 2px dashed #394651;
+            border-radius: 12px;
+            padding: 35px 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: 0.2s;
+        }
+
+        .upload-area:hover {
+            border-color: #f4b400;
+        }
+
+        .upload-area h3 {
+            margin-bottom: 8px;
+        }
+
+        .upload-area p {
+            color: #929da7;
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .choose-file {
+            display: inline-block;
+            padding: 12px 18px;
+            background: #f4b400;
+            color: #111;
+            border-radius: 8px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .file-name {
+            margin-top: 15px;
+            color: #d7dfe6;
+            font-size: 14px;
+        }
+
+        .preview-wrapper {
+            display: none;
+            margin-top: 25px;
+            overflow-x: auto;
+        }
+
+        .preview-wrapper h3 {
+            margin-bottom: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 750px;
+            background: #0b131a;
+        }
+
+        th,
+        td {
+            border: 1px solid #29343e;
+            padding: 10px;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        th {
+            background: #16212a;
+            color: #f4b400;
+        }
+
+        td {
+            color: #dce2e7;
+        }
+
+        .bulk-submit {
+            margin-top: 22px;
+        }
+
+        .status-note {
+            background: rgba(244,180,0,0.08);
+            border: 1px solid rgba(244,180,0,0.2);
+            color: #d9c98e;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 20px;
+            color: #77838e;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            font-size: 13px;
+        }
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 16px 18px;
+            }
+
+            .header-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav {
+                gap: 12px;
+            }
+
+            .hero h1 {
+                font-size: 29px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+
+            .mode-buttons {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<header>
+
+    <div class="header-inner">
+
+        <a
+            href="../index.html"
+            class="logo"
+        >
+            SHADAB <span>CITY RENTAL</span>
+        </a>
+
+        <nav>
+
+            <a href="../index.html">Home</a>
+
+            <a href="equipment.html">
+                Find Equipment
+            </a>
+
+            <a href="owner-dashboard.html">
+                Dashboard
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+
+    <section class="hero">
+
+        <h1>
+            List Your <span>Equipment</span>
+        </h1>
+
+        <p>
+            Rent out your construction, industrial and heavy equipment
+            through SHADAB CITY RENTAL.
+        </p>
+
+    </section>
+
+
+    <!-- OWNER INFO -->
+
+    <div class="owner-box">
+
+        <div class="owner-info">
+
+            Logged in as:
+            <strong id="ownerNameDisplay">
+                Owner
+            </strong>
+
+            <br>
+
+            Phone:
+            <strong id="ownerPhoneDisplay">
+                -
+            </strong>
+
+        </div>
+
+        <button
+            class="logout-btn"
+            onclick="logoutOwner()"
+        >
+            Logout
+        </button>
+
+    </div>
+
+
+    <!-- MODE BUTTONS -->
+
+    <div class="mode-buttons">
+
+        <button
+            id="singleModeBtn"
+            class="mode-btn active"
+            onclick="showSingleMode()"
+        >
+            ➕ List One Equipment
+        </button>
+
+        <button
+            id="bulkModeBtn"
+            class="mode-btn"
+            onclick="showBulkMode()"
+        >
+            📊 Bulk Upload Excel / CSV
+        </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         SINGLE EQUIPMENT
+    ====================================================== -->
+
+    <section
+        id="singleSection"
+        class="card"
+    >
+
+        <h2>
+            List One Equipment
+        </h2>
+
+        <p class="card-subtitle">
+            Add one equipment manually. Your listing will remain
+            <strong>Pending</strong> until reviewed and approved by
+            SHADAB CITY RENTAL admin.
+        </p>
+
+
+        <form id="singleEquipmentForm">
+
+            <div class="form-grid">
+
+
+                <div class="field">
+
+                    <label for="equipmentName">
+                        Equipment Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="equipmentName"
+                        placeholder="Example: Toyota Forklift 3 Ton"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="category">
+                        Category *
+                    </label>
+
+                    <select
+                        id="category"
+                        required
+                    >
+
+                        <option value="">
+                            Select Category
+                        </option>
+
+                        <option value="Forklift">
+                            Forklift
+                        </option>
+
+                        <option value="Excavator">
+                            Excavator
+                        </option>
+
+                        <option value="Crane">
+                            Crane
+                        </option>
+
+                        <option value="Mobile Crane">
+                            Mobile Crane
+                        </option>
+
+                        <option value="Boom Lift">
+                            Boom Lift
+                        </option>
+
+                        <option value="Scissor Lift">
+                            Scissor Lift
+                        </option>
+
+                        <option value="Telehandler">
+                            Telehandler
+                        </option>
+
+                        <option value="Loader">
+                            Loader
+                        </option>
+
+                        <option value="Skid Steer">
+                            Skid Steer
+                        </option>
+
+                        <option value="Dozer">
+                            Dozer
+                        </option>
+
+                        <option value="Generator">
+                            Generator
+                        </option>
+
+                        <option value="Compressor">
+                            Compressor
+                        </option>
+
+                        <option value="Truck">
+                            Truck
+                        </option>
+
+                        <option value="Trailer">
+                            Trailer
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="location">
+                        Location *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="location"
+                        placeholder="Example: Dammam, Saudi Arabia"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="price">
+                        Rental Price / Day (SAR) *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="price"
+                        min="1"
+                        step="0.01"
+                        placeholder="Example: 500"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field full">
+
+                    <label for="description">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        placeholder="Equipment condition, model, capacity, year, operator availability, etc."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="field full">
+
+                    <label for="equipmentImage">
+                        Equipment Photo
+                    </label>
+
+                    <input
+                        type="file"
+                        id="equipmentImage"
+                        accept="image/*"
+                    >
+
+                    <div class="help">
+                        Optional. Maximum recommended file size: 2 MB.
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                type="submit"
+                id="singleSubmitBtn"
+                class="submit-btn"
+            >
+                Submit Equipment for Approval
+            </button>
+
+
+            <div
+                id="singleMessage"
+                class="message"
+            ></div>
+
+        </form>
+
+
+        <div class="status-note">
+
+            <strong>Important:</strong>
+            After submission, your equipment will not immediately appear
+            publicly. It will first go to Admin for verification and
+            approval.
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         BULK UPLOAD
+    ====================================================== -->
+
+    <section
+        id="bulkSection"
+        class="card hidden"
+    >
+
+        <h2>
+            Bulk Equipment Upload
+        </h2>
+
+        <p class="card-subtitle">
+            If you have dozens or hundreds of equipment units,
+            prepare one Excel/CSV file and upload them together.
+            This is useful for companies with 100, 500 or more
+            equipment records.
+        </p>
+
+
+        <div class="bulk-tools">
+
+            <button
+                type="button"
+                class="secondary-btn"
+                onclick="downloadTemplate()"
+            >
+                ⬇ Download Excel Template
+            </button>
+
+            <button
+                type="button"
+                class="secondary-btn"
+                onclick="downloadCSVTemplate()"
+            >
+                ⬇ Download CSV Template
+            </button>
+
+        </div>
+
+
+        <div class="upload-area">
+
+            <h3>
+                Upload Excel / CSV File
+            </h3>
+
+            <p>
+                Supported formats: .xlsx, .xls and .csv
+            </p>
+
+            <label
+                for="bulkFile"
+                class="choose-file"
+            >
+                Choose File
+            </label>
+
+            <input
+                type="file"
+                id="bulkFile"
+                class="file-input"
+                accept=".xlsx,.xls,.csv"
+            >
+
+            <div
+                id="bulkFileName"
+                class="file-name"
+            >
+                No file selected
+            </div>
+
+        </div>
+
+
+        <div class="status-note">
+
+            <strong>Excel columns:</strong>
+
+            Equipment Name,
+            Category,
+            Location,
+            Rental Price/Day,
+            Description,
+            Image URL
+
+            <br><br>
+
+            <strong>Required:</strong>
+            Equipment Name, Category, Location and Rental Price/Day.
+
+            <br>
+
+            <strong>Note:</strong>
+            Image URL is optional.
+
+        </div>
+
+
+        <div
+            id="bulkMessage"
+            class="message"
+        ></div>
+
+
+        <div
+            id="previewWrapper"
+            class="preview-wrapper"
+        >
+
+            <h3>
+                Upload Preview
+            </h3>
+
+            <div id="previewInfo"></div>
+
+            <div id="previewTableContainer"></div>
+
+            <button
+                type="button"
+                id="bulkSubmitBtn"
+                class="submit-btn bulk-submit"
+                onclick="submitBulkEquipment()"
+            >
+                Submit All Equipment for Admin Approval
+            </button>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<footer>
+
+    © 2026 SHADAB CITY RENTAL —
+    Construction & Industrial Equipment Rental Marketplace
+    in Saudi Arabia.
+
+</footer>
+
+
+<!-- SheetJS for Excel / CSV reading -->
+
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+
+
+<script>
+
+    /* =====================================================
+       API
+    ====================================================== */
+
+    const API =
+        (
+            window.location.hostname === "localhost" ||
+            window.location.hostname === "127.0.0.1"
+        )
+        ? "http://localhost:3000/api"
+        : `${window.location.origin}/api`;
+
+
+    /* =====================================================
+       OWNER SESSION
+    ====================================================== */
+
+    const ownerLoggedIn =
+        sessionStorage.getItem("ownerLoggedIn");
+
+    const ownerId =
+        sessionStorage.getItem("ownerId");
+
+    const ownerName =
+        sessionStorage.getItem("ownerName");
+
+    const ownerPhone =
+        sessionStorage.getItem("ownerPhone");
+
+
+    if (
+        ownerLoggedIn !== "true" ||
+        !ownerId
+    ) {
+
+        window.location.href =
+            "owner-login.html";
+
+    }
+
+
+    document.getElementById(
+        "ownerNameDisplay"
+    ).textContent = ownerName || "Owner";
+
+
+    document.getElementById(
+        "ownerPhoneDisplay"
+    ).textContent = ownerPhone || "-";
+
+
+    /* =====================================================
+       LOGOUT
+    ====================================================== */
+
+    function logoutOwner() {
+
+        sessionStorage.removeItem("ownerLoggedIn");
+        sessionStorage.removeItem("ownerId");
+        sessionStorage.removeItem("ownerName");
+        sessionStorage.removeItem("ownerPhone");
+
+        window.location.href =
+            "owner-login.html";
+
+    }
+
+
+    /* =====================================================
+       MODE SWITCH
+    ====================================================== */
+
+    function showSingleMode() {
+
+        document.getElementById(
+            "singleSection"
+        ).classList.remove("hidden");
+
+        document.getElementById(
+            "bulkSection"
+        ).classList.add("hidden");
+
+        document.getElementById(
+            "singleModeBtn"
+        ).classList.add("active");
+
+        document.getElementById(
+            "bulkModeBtn"
+        ).classList.remove("active");
+
+    }
+
+
+    function showBulkMode() {
+
+        document.getElementById(
+            "singleSection"
+        ).classList.add("hidden");
+
+        document.getElementById(
+            "bulkSection"
+        ).classList.remove("hidden");
+
+        document.getElementById(
+            "singleModeBtn"
+        ).classList.remove("active");
+
+        document.getElementById(
+            "bulkModeBtn"
+        ).classList.add("active");
+
+    }
+
+
+    /* =====================================================
+       SINGLE EQUIPMENT PHOTO
+    ====================================================== */
+
+    let imageBase64 = "";
+
+
+    document.getElementById(
+        "equipmentImage"
+    ).addEventListener(
+        "change",
+        function () {
+
+            const file = this.files[0];
+
+            if (!file) {
+
+                imageBase64 = "";
+
+                return;
+
+            }
+
+
+            if (file.size > 2 * 1024 * 1024) {
+
+                alert(
+                    "Image is too large. Please select an image under 2 MB."
+                );
+
+                this.value = "";
+                imageBase64 = "";
+
+                return;
+
+            }
+
+
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+
+                imageBase64 =
+                    event.target.result;
+
+            };
+
+            reader.readAsDataURL(file);
+
+        }
+    );
+
+
+    /* =====================================================
+       SINGLE EQUIPMENT SUBMIT
+    ====================================================== */
+
+    document.getElementById(
+        "singleEquipmentForm"
+    ).addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            const button =
+                document.getElementById(
+                    "singleSubmitBtn"
+                );
+
+            const message =
+                document.getElementById(
+                    "singleMessage"
+                );
+
+
+            const equipment = {
+
+                ownerId,
+
+                ownerName,
+
+                ownerPhone,
+
+                name:
+                    document.getElementById(
+                        "equipmentName"
+                    ).value.trim(),
+
+                category:
+                    document.getElementById(
+                        "category"
+                    ).value.trim(),
+
+                location:
+                    document.getElementById(
+                        "location"
+                    ).value.trim(),
+
+                price:
+                    Number(
+                        document.getElementById(
+                            "price"
+                        ).value
+                    ),
+
+                description:
+                    document.getElementById(
+                        "description"
+                    ).value.trim(),
+
+                image:
+                    imageBase64
+
+            };
+
+
+            button.disabled = true;
+
+            button.textContent =
+                "Submitting...";
+
+
+            message.className =
+                "message";
+
+            message.textContent = "";
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API}/equipment`,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    equipment
+                                )
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok || !data.success) {
+
+                    throw new Error(
+                        data.message ||
+                        "Equipment submission failed."
+                    );
+
+                }
+
+
+                message.className =
+                    "message success";
+
+                message.textContent =
+                    "Equipment submitted successfully. It is now Pending Admin Approval.";
+
+
+                document.getElementById(
+                    "singleEquipmentForm"
+                ).reset();
+
+                imageBase64 = "";
+
+
+                setTimeout(
+                    function () {
+
+                        window.location.href =
+                            "owner-dashboard.html";
+
+                    },
+                    1800
+                );
+
+
+            } catch (error) {
+
+                message.className =
+                    "message error";
+
+                message.textContent =
+                    error.message ||
+                    "Something went wrong.";
+
+            } finally {
+
+                button.disabled = false;
+
+                button.textContent =
+                    "Submit Equipment for Approval";
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       BULK DATA
+    ====================================================== */
+
+    let bulkRows = [];
+
+
+    /* =====================================================
+       BULK FILE SELECT
+    ====================================================== */
+
+    document.getElementById(
+        "bulkFile"
+    ).addEventListener(
+        "change",
+        function () {
+
+            const file = this.files[0];
+
+            bulkRows = [];
+
+
+            document.getElementById(
+                "previewWrapper"
+            ).style.display = "none";
+
+
+            document.getElementById(
+                "bulkMessage"
+            ).className = "message";
+
+
+            if (!file) {
+
+                document.getElementById(
+                    "bulkFileName"
+                ).textContent =
+                    "No file selected";
+
+                return;
+
+            }
+
+
+            document.getElementById(
+                "bulkFileName"
+            ).textContent =
+                file.name;
+
+
+            readBulkFile(file);
+
+        }
+    );
+
+
+    /* =====================================================
+       READ EXCEL / CSV
+    ====================================================== */
+
+    function readBulkFile(file) {
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload = function (event) {
+
+            try {
+
+                const data =
+                    new Uint8Array(
+                        event.target.result
+                    );
+
+
+                const workbook =
+                    XLSX.read(
+                        data,
+                        {
+                            type: "array"
+                        }
+                    );
+
+
+                if (
+                    !workbook.SheetNames ||
+                    !workbook.SheetNames.length
+                ) {
+
+                    throw new Error(
+                        "No worksheet found in the file."
+                    );
+
+                }
+
+
+                const firstSheet =
+                    workbook.Sheets[
+                        workbook.SheetNames[0]
+                    ];
+
+
+                const rows =
+                    XLSX.utils.sheet_to_json(
+                        firstSheet,
+                        {
+                            defval: ""
+                        }
+                    );
+
+
+                if (!rows.length) {
+
+                    throw new Error(
+                        "The uploaded file does not contain any equipment records."
+                    );
+
+                }
+
+
+                if (rows.length > 2000) {
+
+                    throw new Error(
+                        "Maximum 2000 equipment records can be uploaded at once."
+                    );
+
+                }
+
+
+                bulkRows =
+                    rows.map(
+                        function (row) {
+
+                            return normalizeClientRow(
+                                row
+                            );
+
+                        }
+                    );
+
+
+                showBulkPreview();
+
+
+            } catch (error) {
+
+                showBulkError(
+                    error.message ||
+                    "Could not read the file."
+                );
+
+            }
+
+        };
+
+
+        reader.onerror = function () {
+
+            showBulkError(
+                "Could not read the selected file."
+            );
+
+        };
+
+
+        reader.readAsArrayBuffer(file);
+
+    }
+
+
+    /* =====================================================
+       NORMALIZE EXCEL ROW
+    ====================================================== */
+
+    function normalizeClientRow(row) {
+
+        const normalized = {};
+
+
+        Object.keys(row || {}).forEach(
+            function (key) {
+
+                const cleanKey =
+                    String(key)
+                        .trim()
+                        .toLowerCase()
+                        .replace(/\s+/g, "")
+                        .replace(/[_-]/g, "");
+
+
+                normalized[cleanKey] =
+                    row[key];
+
+            }
+        );
+
+
+        return {
+
+            "Equipment Name":
+                normalized.equipmentname ||
+                normalized.name ||
+                normalized.equipment ||
+                "",
+
+            "Category":
+                normalized.category ||
+                normalized.equipmentcategory ||
+                "",
+
+            "Location":
+                normalized.location ||
+                normalized.city ||
+                "",
+
+            "Rental Price/Day":
+                normalized.rentalpriceday ||
+                normalized.rentalprice ||
+                normalized.price ||
+                normalized.priceday ||
+                "",
+
+            "Description":
+                normalized.description ||
+                normalized.details ||
+                "",
+
+            "Image URL":
+                normalized.imageurl ||
+                normalized.image ||
+                normalized.photourl ||
+                ""
+
+        };
+
+    }
+
+
+    /* =====================================================
+       VALIDATE BULK ROW
+    ====================================================== */
+
+    function validateBulkRow(row) {
+
+        const errors = [];
+
+
+        const name =
+            String(
+                row["Equipment Name"] || ""
+            ).trim();
+
+
+        const category =
+            String(
+                row["Category"] || ""
+            ).trim();
+
+
+        const location =
+            String(
+                row["Location"] || ""
+            ).trim();
+
+
+        const price =
+            Number(
+                String(
+                    row["Rental Price/Day"] || ""
+                )
+                    .replace(/,/g, "")
+                    .replace(/[^\d.-]/g, "")
+            );
+
+
+        if (!name) {
+
+            errors.push(
+                "Equipment Name missing"
+            );
+
+        }
+
+
+        if (!category) {
+
+            errors.push(
+                "Category missing"
+            );
+
+        }
+
+
+        if (!location) {
+
+            errors.push(
+                "Location missing"
+            );
+
+        }
+
+
+        if (
+            !Number.isFinite(price) ||
+            price <= 0
+        ) {
+
+            errors.push(
+                "Invalid Rental Price/Day"
+            );
+
+        }
+
+
+        return errors;
+
+    }
+
+
+    /* =====================================================
+       SHOW BULK PREVIEW
+    ====================================================== */
+
+    function showBulkPreview() {
+
+        const wrapper =
+            document.getElementById(
+                "previewWrapper"
+            );
+
+
+        const info =
+            document.getElementById(
+                "previewInfo"
+            );
+
+
+        const tableContainer =
+            document.getElementById(
+                "previewTableContainer"
+            );
+
+
+        const message =
+            document.getElementById(
+                "bulkMessage"
+            );
+
+
+        let errorCount = 0;
+
+
+        bulkRows.forEach(
+            function (row) {
+
+                const errors =
+                    validateBulkRow(row);
+
+                if (errors.length) {
+                    errorCount++;
+                }
+
+            }
+        );
+
+
+        if (errorCount > 0) {
+
+            message.className =
+                "message error";
+
+            message.innerHTML =
+                `<strong>${errorCount}</strong> row(s) contain errors. Please correct the file before uploading.`;
+
+            wrapper.style.display = "none";
+
+            return;
+
+        }
+
+
+        message.className =
+            "message success";
+
+        message.innerHTML =
+            `<strong>${bulkRows.length}</strong> equipment record(s) loaded successfully. Please review the preview below.`;
+
+
+        info.innerHTML =
+            `
+            <p style="margin-bottom:15px;color:#aeb8c2;">
+                Total records:
+                <strong style="color:#f4b400;">
+                    ${bulkRows.length}
+                </strong>
+            </p>
+            `;
+
+
+        const previewRows =
+            bulkRows.slice(0, 20);
+
+
+        let html = `
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>Equipment Name</th>
+
+                        <th>Category</th>
+
+                        <th>Location</th>
+
+                        <th>Price / Day</th>
+
+                        <th>Description</th>
+
+                        <th>Image URL</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+        `;
+
+
+        previewRows.forEach(
+            function (row, index) {
+
+                html += `
+
+                    <tr>
+
+                        <td>
+                            ${index + 1}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                row["Equipment Name"]
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                row["Category"]
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                row["Location"]
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                row["Rental Price/Day"]
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                row["Description"]
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                row["Image URL"]
+                            )}
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        );
+
+
+        html += `
+
+                </tbody>
+
+            </table>
+        `;
+
+
+        if (bulkRows.length > 20) {
+
+            html += `
+
+                <p style="
+                    margin-top:12px;
+                    color:#8995a0;
+                    font-size:13px;
+                ">
+                    Showing first 20 records for preview.
+                    All ${bulkRows.length} records will be submitted.
+                </p>
+
+            `;
+
+        }
+
+
+        tableContainer.innerHTML =
+            html;
+
+
+        wrapper.style.display =
+            "block";
+
+    }
+
+
+    /* =====================================================
+       SUBMIT BULK EQUIPMENT
+    ====================================================== */
+
+    async function submitBulkEquipment() {
+
+        if (!bulkRows.length) {
+
+            showBulkError(
+                "Please select an Excel or CSV file first."
+            );
+
+            return;
+
+        }
+
+
+        const validationErrors = [];
+
+
+        bulkRows.forEach(
+            function (row, index) {
+
+                const errors =
+                    validateBulkRow(row);
+
+                if (errors.length) {
+
+                    validationErrors.push(
+                        `Row ${index + 2}: ${errors.join(", ")}`
+                    );
+
+                }
+
+            }
+        );
+
+
+        if (validationErrors.length) {
+
+            showBulkError(
+                validationErrors
+                    .slice(0, 10)
+                    .join(" | ")
+            );
+
+            return;
+
+        }
+
+
+        const button =
+            document.getElementById(
+                "bulkSubmitBtn"
+            );
+
+
+        const message =
+            document.getElementById(
+                "bulkMessage"
+            );
+
+
+        const rowsForServer =
+            bulkRows.map(
+                function (row) {
+
+                    return {
+
+                        name:
+                            String(
+                                row["Equipment Name"] || ""
+                            ).trim(),
+
+                        category:
+                            String(
+                                row["Category"] || ""
+                            ).trim(),
+
+                        location:
+                            String(
+                                row["Location"] || ""
+                            ).trim(),
+
+                        price:
+                            Number(
+                                String(
+                                    row["Rental Price/Day"] || ""
+                                )
+                                    .replace(/,/g, "")
+                                    .replace(/[^\d.-]/g, "")
+                            ),
+
+                        description:
+                            String(
+                                row["Description"] || ""
+                            ).trim(),
+
+                        image:
+                            String(
+                                row["Image URL"] || ""
+                            ).trim()
+
+                    };
+
+                }
+            );
+
+
+        button.disabled = true;
+
+        button.textContent =
+            `Uploading ${rowsForServer.length} Equipment...`;
+
+
+        message.className =
+            "message";
+
+        message.textContent = "";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API}/equipment/bulk`,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+                                ownerId,
+                                rows:
+                                    rowsForServer
+                            })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok || !data.success) {
+
+                let errorText =
+                    data.message ||
+                    "Bulk upload failed.";
+
+
+                if (
+                    Array.isArray(
+                        data.errors
+                    )
+                ) {
+
+                    errorText +=
+                        " " +
+                        data.errors
+                            .slice(0, 5)
+                            .map(
+                                function (item) {
+
+                                    return (
+                                        `Row ${item.row}: ` +
+                                        item.errors.join(", ")
+                                    );
+
+                                }
+                            )
+                            .join(" | ");
+
+                }
+
+
+                throw new Error(
+                    errorText
+                );
+
+            }
+
+
+            message.className =
+                "message success";
+
+            message.innerHTML =
+                `
+                <strong>
+                    ${data.inserted}
+                </strong>
+                equipment record(s) submitted successfully.
+                All listings are currently
+                <strong>Pending Admin Approval</strong>.
+                `;
+
+
+            bulkRows = [];
+
+
+            document.getElementById(
+                "bulkFile"
+            ).value = "";
+
+
+            document.getElementById(
+                "bulkFileName"
+            ).textContent =
+                "No file selected";
+
+
+            document.getElementById(
+                "previewWrapper"
+            ).style.display =
+                "none";
+
+
+            setTimeout(
+                function () {
+
+                    window.location.href =
+                        "owner-dashboard.html";
+
+                },
+                2200
+            );
+
+
+        } catch (error) {
+
+            showBulkError(
+                error.message ||
+                "Bulk upload failed."
+            );
+
+        } finally {
+
+            button.disabled = false;
+
+            button.textContent =
+                "Submit All Equipment for Admin Approval";
+
+        }
+
+    }
+
+
+    /* =====================================================
+       ERROR MESSAGE
+    ====================================================== */
+
+    function showBulkError(message) {
+
+        const element =
+            document.getElementById(
+                "bulkMessage"
+            );
+
+        element.className =
+            "message error";
+
+        element.textContent =
+            message;
+
+    }
+
+
+    /* =====================================================
+       ESCAPE HTML
+    ====================================================== */
+
+    function escapeHtml(value) {
+
+        return String(
+            value === undefined ||
+            value === null
+                ? ""
+                : value
+        )
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =====================================================
+       DOWNLOAD EXCEL TEMPLATE
+    ====================================================== */
+
+    function downloadTemplate() {
+
+        const data = [
+
+            {
+                "Equipment Name":
+                    "Toyota Forklift 3 Ton",
+
+                "Category":
+                    "Forklift",
+
+                "Location":
+                    "Dammam",
+
+                "Rental Price/Day":
+                    500,
+
+                "Description":
+                    "3 Ton Toyota Forklift, good condition",
+
+                "Image URL":
+                    ""
+
+            },
+
+            {
+                "Equipment Name":
+                    "CAT Excavator 320",
+
+                "Category":
+                    "Excavator",
+
+                "Location":
+                    "Jubail",
+
+                "Rental Price/Day":
+                    1200,
+
+                "Description":
+                    "CAT 320 Excavator",
+
+                "Image URL":
+                    ""
+
+            }
+
+        ];
+
+
+        const worksheet =
+            XLSX.utils.json_to_sheet(
+                data
+            );
+
+
+        const workbook =
+            XLSX.utils.book_new();
+
+
+        XLSX.utils.book_append_sheet(
+            workbook,
+            worksheet,
+            "Equipment"
+        );
+
+
+        XLSX.writeFile(
+            workbook,
+            "SHADAB_CITY_RENTAL_EQUIPMENT_TEMPLATE.xlsx"
+        );
+
+    }
+
+
+    /* =====================================================
+       DOWNLOAD CSV TEMPLATE
+    ====================================================== */
+
+    function downloadCSVTemplate() {
+
+        const data = [
+
+            {
+                "Equipment Name":
+                    "Toyota Forklift 3 Ton",
+
+                "Category":
+                    "Forklift",
+
+                "Location":
+                    "Dammam",
+
+                "Rental Price/Day":
+                    500,
+
+                "Description":
+                    "3 Ton Toyota Forklift, good condition",
+
+                "Image URL":
+                    ""
+
+            },
+
+            {
+                "Equipment Name":
+                    "CAT Excavator 320",
+
+                "Category":
+                    "Excavator",
+
+                "Location":
+                    "Jubail",
+
+                "Rental Price/Day":
+                    1200,
+
+                "Description":
+                    "CAT 320 Excavator",
+
+                "Image URL":
+                    ""
+
+            }
+
+        ];
+
+
+        const worksheet =
+            XLSX.utils.json_to_sheet(
+                data
+            );
+
+
+        const csv =
+            XLSX.utils.sheet_to_csv(
+                worksheet
+            );
+
+
+        const blob =
+            new Blob(
+                [csv],
+                {
+                    type:
+                        "text/csv;charset=utf-8;"
+                }
+            );
+
+
+        const url =
+            URL.createObjectURL(
+                blob
+            );
+
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+
+        link.href = url;
+
+        link.download =
+            "SHADAB_CITY_RENTAL_EQUIPMENT_TEMPLATE.csv";
+
+
+        document.body.appendChild(
+            link
+        );
+
+        link.click();
+
+        document.body.removeChild(
+            link
+        );
+
+
+        URL.revokeObjectURL(
+            url
+        );
+
+    }
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Owner Login | SHADAB CITY RENTAL</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#07111f;
+    color:#fff;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:520px;
+}
+
+.card{
+    background:linear-gradient(145deg,#0c1b2d,#07111f);
+    border:1px solid #1d405f;
+    border-radius:18px;
+    padding:35px;
+    box-shadow:0 20px 60px rgba(0,0,0,.45);
+}
+
+.logo{
+    text-align:center;
+    font-size:25px;
+    font-weight:800;
+    letter-spacing:1px;
+    margin-bottom:8px;
+}
+
+.logo span{
+    color:#35c2ff;
+}
+
+.subtitle{
+    text-align:center;
+    color:#8fa8bd;
+    margin-bottom:30px;
+    font-size:14px;
+}
+
+h1{
+    font-size:24px;
+    margin-bottom:8px;
+}
+
+.description{
+    color:#91a7ba;
+    font-size:14px;
+    margin-bottom:25px;
+}
+
+.field{
+    margin-bottom:18px;
+}
+
+label{
+    display:block;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:8px;
+    color:#cbd8e4;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border-radius:9px;
+    border:1px solid #24435e;
+    background:#081522;
+    color:white;
+    outline:none;
+    font-size:15px;
+}
+
+input:focus{
+    border-color:#35c2ff;
+    box-shadow:0 0 0 2px rgba(53,194,255,.12);
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:9px;
+    background:linear-gradient(90deg,#149ddd,#35c2ff);
+    color:#00111d;
+    font-size:15px;
+    font-weight:800;
+    cursor:pointer;
+    margin-top:8px;
+}
+
+button:hover{
+    opacity:.92;
+}
+
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.message{
+    display:none;
+    margin-top:18px;
+    padding:13px;
+    border-radius:8px;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.success{
+    display:block;
+    background:#0d3327;
+    border:1px solid #1d8a67;
+    color:#8ff0cf;
+}
+
+.error{
+    display:block;
+    background:#3a1519;
+    border:1px solid #a73b48;
+    color:#ffabb5;
+}
+
+.links{
+    text-align:center;
+    margin-top:22px;
+    font-size:14px;
+    color:#8fa8bd;
+}
+
+.links a{
+    color:#35c2ff;
+    text-decoration:none;
+    font-weight:700;
+}
+
+.back{
+    display:block;
+    text-align:center;
+    margin-top:20px;
+    color:#8fa8bd;
+    text-decoration:none;
+    font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="logo">
+            SHADAB <span>CITY RENTAL</span>
+        </div>
+
+        <div class="subtitle">
+            SAUDI EQUIPMENT RENTAL MARKETPLACE
+        </div>
+
+        <h1>Owner Login</h1>
+
+        <p class="description">
+            Login to manage your equipment and rental requests.
+        </p>
+
+        <form id="loginForm">
+
+            <div class="field">
+                <label for="ownerPhone">
+                    Mobile / WhatsApp
+                </label>
+
+                <input
+                    type="tel"
+                    id="ownerPhone"
+                    placeholder="e.g. 9665XXXXXXXX"
+                    required
+                >
+            </div>
+
+            <div class="field">
+                <label for="ownerPassword">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="ownerPassword"
+                    placeholder="Enter your password"
+                    required
+                >
+            </div>
+
+            <button type="submit" id="loginBtn">
+                OWNER LOGIN
+            </button>
+
+        </form>
+
+        <div id="message" class="message"></div>
+
+        <div class="links">
+            Don't have an account?
+            <a href="owner-register.html">
+                Register Now
+            </a>
+        </div>
+
+        <a class="back" href="../index.html">
+            ← Back to SHADAB CITY RENTAL
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+
+const API = "http://localhost:3000/api";
+
+const form = document.getElementById("loginForm");
+const message = document.getElementById("message");
+const loginBtn = document.getElementById("loginBtn");
+
+form.addEventListener("submit", async function(event){
+
+    event.preventDefault();
+
+    const phone =
+        document.getElementById("ownerPhone")
+        .value
+        .trim();
+
+    const password =
+        document.getElementById("ownerPassword")
+        .value;
+
+    const cleanPhone =
+        phone.replace(/\D/g,"");
+
+    message.className = "message";
+    message.textContent = "";
+
+    if(cleanPhone.length < 8){
+
+        showMessage(
+            "Please enter a valid mobile number.",
+            "error"
+        );
+
+        return;
+    }
+
+    if(!password){
+
+        showMessage(
+            "Please enter your password.",
+            "error"
+        );
+
+        return;
+    }
+
+    loginBtn.disabled = true;
+    loginBtn.textContent = "AUTHENTICATING...";
+
+    try{
+
+        const response = await fetch(
+            API + "/owners/login",
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body:JSON.stringify({
+                    phone:cleanPhone,
+                    password:password
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if(!response.ok){
+
+            showMessage(
+                data.message || "Login failed.",
+                "error"
+            );
+
+            loginBtn.disabled = false;
+            loginBtn.textContent = "OWNER LOGIN";
+
+            return;
+        }
+
+        /*
+         * Save only session information.
+         * Password is NOT stored in browser storage.
+         */
+
+        sessionStorage.setItem(
+            "ownerLoggedIn",
+            "true"
+        );
+
+        sessionStorage.setItem(
+            "ownerId",
+            data.owner.id
+        );
+
+        sessionStorage.setItem(
+            "ownerPhone",
+            data.owner.phone
+        );
+
+        sessionStorage.setItem(
+            "ownerName",
+            data.owner.name
+        );
+
+        showMessage(
+            "LOGIN SUCCESSFUL. Redirecting...",
+            "success"
+        );
+
+        setTimeout(function(){
+
+            window.location.href =
+                "owner-dashboard.html";
+
+        },1000);
+
+    }catch(error){
+
+        console.error(error);
+
+        showMessage(
+            "Cannot connect to backend server. Make sure localhost:3000 is running.",
+            "error"
+        );
+
+        loginBtn.disabled = false;
+        loginBtn.textContent = "OWNER LOGIN";
+    }
+
+});
+
+
+function showMessage(text,type){
+
+    message.textContent = text;
+
+    message.className =
+        "message " + type;
+}
+
+</script>
+
+</body>
+</html>

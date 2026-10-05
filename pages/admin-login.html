@@ -1,0 +1,325 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Login | SHADAB CITY RENTAL</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <style>
+
+        .login-section {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 450px;
+            background: #fff;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.10);
+        }
+
+        .login-box h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .login-box p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .login-group {
+            margin-bottom: 20px;
+        }
+
+        .login-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .login-group input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            box-sizing: border-box;
+        }
+
+        .login-btn {
+            width: 100%;
+            border: none;
+            cursor: pointer;
+        }
+
+        .login-error {
+            display: none;
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 7px;
+            margin-bottom: 20px;
+        }
+
+        .login-logo {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 25px;
+        }
+
+        .login-logo span {
+            color: #f59e0b;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="main-header">
+
+    <div class="container header-inner">
+
+        <a
+            href="../index.html"
+            class="logo"
+        >
+            SHADAB <span>CITY RENTAL</span>
+        </a>
+
+
+        <nav class="nav-menu">
+
+            <a href="../index.html">
+                Home
+            </a>
+
+            <a href="equipment.html">
+                Find Equipment
+            </a>
+
+            <a href="list-equipment.html">
+                List Your Equipment
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+
+<section class="page-header">
+
+    <div class="container">
+
+        <h1>
+            Admin Login
+        </h1>
+
+        <p>
+            Authorized access only.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<section class="login-section">
+
+    <div class="login-box">
+
+
+        <div class="login-logo">
+            SHADAB <span>CITY RENTAL</span>
+        </div>
+
+
+        <h2>
+            Admin Login
+        </h2>
+
+
+        <p>
+            Enter your administrator credentials.
+        </p>
+
+
+        <div
+            id="loginError"
+            class="login-error"
+        >
+            Incorrect username or password.
+        </div>
+
+
+
+        <form id="loginForm">
+
+
+            <div class="login-group">
+
+                <label>
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Enter username"
+                    required
+                >
+
+            </div>
+
+
+
+            <div class="login-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter password"
+                    required
+                >
+
+            </div>
+
+
+
+            <button
+                type="submit"
+                class="btn btn-primary login-btn"
+            >
+                Login to Dashboard
+            </button>
+
+
+        </form>
+
+
+    </div>
+
+</section>
+
+
+
+<footer class="main-footer">
+
+    <div class="container">
+
+        <p>
+            © 2026 SHADAB CITY RENTAL. All Rights Reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+<script>
+
+
+/* =================================
+   ADMIN LOGIN
+================================= */
+
+
+const ADMIN_USERNAME =
+    "admin";
+
+
+const ADMIN_PASSWORD =
+    "Shadab@123";
+
+
+document
+    .getElementById("loginForm")
+    .addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            const username =
+                document
+                    .getElementById("username")
+                    .value
+                    .trim();
+
+
+            const password =
+                document
+                    .getElementById("password")
+                    .value;
+
+
+            if (
+                username === ADMIN_USERNAME &&
+                password === ADMIN_PASSWORD
+            ) {
+
+
+                sessionStorage.setItem(
+                    "adminLoggedIn",
+                    "true"
+                );
+
+
+                window.location.href =
+                    "admin.html";
+
+
+            } else {
+
+
+                document
+                    .getElementById("loginError")
+                    .style.display =
+                    "block";
+
+
+            }
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+
+</html>
+```

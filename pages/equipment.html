@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Find Equipment | SHADAB CITY RENTAL</title>
+
+<meta
+    name="description"
+    content="Find and rent verified construction, industrial and heavy equipment across Saudi Arabia."
+>
+
+<link
+    rel="canonical"
+    href="https://shadab-city-rental-2.onrender.com/pages/equipment.html"
+>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at 20% 10%, rgba(0,180,255,.12), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(0,120,255,.10), transparent 30%),
+        #050b12;
+    color:#fff;
+    min-height:100vh;
+}
+
+header{
+    height:72px;
+    background:rgba(4,10,18,.94);
+    border-bottom:1px solid rgba(0,200,255,.25);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 5%;
+    position:sticky;
+    top:0;
+    z-index:100;
+    backdrop-filter:blur(12px);
+}
+
+.logo{
+    font-size:21px;
+    font-weight:800;
+    letter-spacing:1px;
+    color:#fff;
+}
+
+.logo span{
+    color:#00c8ff;
+}
+
+nav{
+    display:flex;
+    gap:25px;
+    align-items:center;
+}
+
+nav a{
+    color:#b8c7d6;
+    text-decoration:none;
+    font-size:14px;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#00c8ff;
+}
+
+.menu{
+    display:none;
+    font-size:28px;
+    cursor:pointer;
+    color:#00c8ff;
+}
+
+.hero{
+    text-align:center;
+    padding:70px 20px 40px;
+}
+
+.hero h1{
+    font-size:48px;
+    margin-bottom:15px;
+    background:linear-gradient(90deg,#fff,#00c8ff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+    color:#8fa4b8;
+    font-size:16px;
+}
+
+.search-panel{
+    width:90%;
+    max-width:1150px;
+    margin:0 auto 45px;
+    padding:22px;
+    background:rgba(10,22,35,.88);
+    border:1px solid rgba(0,200,255,.22);
+    border-radius:16px;
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+.search-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr auto;
+    gap:12px;
+}
+
+input,
+select{
+    width:100%;
+    padding:14px 15px;
+    background:#07111c;
+    border:1px solid #203548;
+    border-radius:9px;
+    color:#fff;
+    outline:none;
+    font-size:14px;
+}
+
+input:focus,
+select:focus{
+    border-color:#00c8ff;
+    box-shadow:0 0 0 2px rgba(0,200,255,.08);
+}
+
+button{
+    border:0;
+    border-radius:9px;
+    padding:14px 24px;
+    background:linear-gradient(135deg,#00c8ff,#0077ff);
+    color:#fff;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 25px rgba(0,170,255,.3);
+}
+
+.status{
+    width:90%;
+    max-width:1150px;
+    margin:0 auto 25px;
+    color:#8196aa;
+    font-size:14px;
+}
+
+.equipment-grid{
+    width:90%;
+    max-width:1150px;
+    margin:auto;
+    padding-bottom:80px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.card{
+    background:
+        linear-gradient(145deg,rgba(14,29,44,.96),rgba(5,13,22,.96));
+    border:1px solid rgba(0,200,255,.18);
+    border-radius:16px;
+    overflow:hidden;
+    transition:.35s;
+    position:relative;
+}
+
+.card:hover{
+    transform:translateY(-7px);
+    border-color:rgba(0,200,255,.65);
+    box-shadow:0 15px 45px rgba(0,160,255,.12);
+}
+
+.image-box{
+    height:210px;
+    background:#08121d;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.image-box img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.no-image{
+    color:#4d6578;
+    font-size:55px;
+}
+
+.card-body{
+    padding:20px;
+}
+
+.badge{
+    display:inline-block;
+    padding:5px 10px;
+    border-radius:20px;
+    background:rgba(0,200,255,.1);
+    color:#00c8ff;
+    font-size:11px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.card h3{
+    font-size:21px;
+    margin-bottom:9px;
+}
+
+.location{
+    color:#9bb0c3;
+    font-size:13px;
+    margin-bottom:15px;
+}
+
+.description{
+    color:#71879a;
+    font-size:13px;
+    line-height:1.6;
+    min-height:42px;
+    margin-bottom:15px;
+}
+
+.price{
+    font-size:23px;
+    font-weight:800;
+    color:#00c8ff;
+    margin-bottom:17px;
+}
+
+.price span{
+    color:#73879a;
+    font-size:12px;
+    font-weight:normal;
+}
+
+.request-btn{
+    width:100%;
+}
+
+.empty{
+    grid-column:1/-1;
+    text-align:center;
+    padding:70px 20px;
+    background:rgba(10,22,35,.7);
+    border:1px dashed #274052;
+    border-radius:16px;
+}
+
+.empty h2{
+    margin-bottom:10px;
+}
+
+.empty p{
+    color:#75899b;
+}
+
+.loading{
+    grid-column:1/-1;
+    text-align:center;
+    padding:70px;
+    color:#00c8ff;
+}
+
+footer{
+    border-top:1px solid rgba(0,200,255,.12);
+    text-align:center;
+    padding:25px;
+    color:#566b7c;
+    font-size:12px;
+}
+
+@media(max-width:900px){
+
+    .equipment-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .search-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .search-grid button{
+        width:100%;
+    }
+}
+
+@media(max-width:650px){
+
+    header{
+        padding:0 20px;
+    }
+
+    nav{
+        display:none;
+    }
+
+    .menu{
+        display:block;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .equipment-grid{
+        grid-template-columns:1fr;
+    }
+
+    .search-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        SHADAB <span>CITY RENTAL</span>
+    </div>
+
+    <nav>
+
+        <a href="../index.html">Home</a>
+
+        <a href="equipment.html">
+            Find Equipment
+        </a>
+
+        <a href="list-equipment.html">
+            List Your Equipment
+        </a>
+
+        <a href="owner-login.html">
+            Owner Login
+        </a>
+
+        <a href="customer-requests.html">
+            Track Request
+        </a>
+
+    </nav>
+
+    <div class="menu" onclick="toggleMenu()">
+        ☰
+    </div>
+
+</header>
+
+
+<section class="hero">
+
+    <h1>
+        Find Equipment
+    </h1>
+
+    <p>
+        Search verified rental equipment available across Saudi Arabia.
+    </p>
+
+</section>
+
+
+<section class="search-panel">
+
+    <div class="search-grid">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search equipment..."
+            autocomplete="off"
+        >
+
+        <select id="categoryInput">
+
+            <option value="">
+                All Categories
+            </option>
+
+            <option value="Excavator">
+                Excavator
+            </option>
+
+            <option value="Forklift">
+                Forklift
+            </option>
+
+            <option value="Crane">
+                Crane
+            </option>
+
+            <option value="Loader">
+                Loader
+            </option>
+
+            <option value="Generator">
+                Generator
+            </option>
+
+            <option value="Truck">
+                Truck
+            </option>
+
+            <option value="Industrial Equipment">
+                Industrial Equipment
+            </option>
+
+            <option value="Construction Equipment">
+                Construction Equipment
+            </option>
+
+            <option value="Heavy Equipment">
+                Heavy Equipment
+            </option>
+
+            <option value="Transport Equipment">
+                Transport Equipment
+            </option>
+
+        </select>
+
+
+        <select id="locationInput">
+
+            <option value="">
+                All Locations
+            </option>
+
+            <option value="Dammam">
+                Dammam
+            </option>
+
+            <option value="Jubail">
+                Jubail
+            </option>
+
+            <option value="Riyadh">
+                Riyadh
+            </option>
+
+            <option value="Jeddah">
+                Jeddah
+            </option>
+
+            <option value="Khobar">
+                Khobar
+            </option>
+
+            <option value="Other">
+                Other
+            </option>
+
+        </select>
+
+
+        <button
+            type="button"
+            onclick="applyFilters()"
+        >
+            SEARCH
+        </button>
+
+    </div>
+
+</section>
+
+
+<div
+    class="status"
+    id="statusText"
+>
+    Connecting to equipment marketplace...
+</div>
+
+
+<section
+    class="equipment-grid"
+    id="equipmentGrid"
+>
+
+    <div class="loading">
+        Loading equipment from database...
+    </div>
+
+</section>
+
+
+<footer>
+
+    © 2026 SHADAB CITY RENTAL —
+    Equipment Rental Marketplace Saudi Arabia
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   LIVE API CONNECTION
+   Automatically works on Render and localhost
+===================================================== */
+
+const API_URL = window.location.origin;
+
+let allEquipment = [];
+
+
+/* =====================================================
+   MOBILE MENU
+===================================================== */
+
+function toggleMenu(){
+
+    const nav = document.querySelector("nav");
+
+    if(!nav){
+        return;
+    }
+
+    if(nav.style.display === "flex"){
+
+        nav.style.display = "";
+
+    }else{
+
+        nav.style.display = "flex";
+        nav.style.flexDirection = "column";
+        nav.style.position = "absolute";
+        nav.style.top = "72px";
+        nav.style.right = "20px";
+        nav.style.background = "rgba(4,10,18,.98)";
+        nav.style.padding = "20px";
+        nav.style.border = "1px solid rgba(0,200,255,.25)";
+        nav.style.borderRadius = "12px";
+        nav.style.gap = "18px";
+
+    }
+}
+
+
+/* =====================================================
+   LOAD EQUIPMENT FROM LIVE DATABASE
+===================================================== */
+
+async function loadEquipment(){
+
+    const grid =
+        document.getElementById("equipmentGrid");
+
+    const status =
+        document.getElementById("statusText");
+
+    try{
+
+        status.textContent =
+            "Connecting to equipment marketplace...";
+
+
+        const response =
+            await fetch(
+                `${API_URL}/api/equipment`,
+                {
+                    method:"GET",
+
+                    headers:{
+                        "Accept":"application/json"
+                    },
+
+                    cache:"no-store"
+                }
+            );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                `Server returned ${response.status}`
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        /*
+           IMPORTANT FIX
+
+           Backend returns:
+
+           {
+               success: true,
+               equipment: [...]
+           }
+
+           Older frontend expected:
+
+           [...]
+        */
+
+
+        if(
+            data &&
+            Array.isArray(data.equipment)
+        ){
+
+            allEquipment =
+                data.equipment;
+
+        }
+
+        else if(
+            Array.isArray(data)
+        ){
+
+            allEquipment =
+                data;
+
+        }
+
+        else{
+
+            throw new Error(
+                "Invalid equipment data received from server."
+            );
+
+        }
+
+
+        console.log(
+            "Live equipment received:",
+            allEquipment
+        );
+
+
+        /*
+           Backend already filters
+           approved equipment.
+
+           Display all approved equipment.
+        */
+
+        applyFilters();
+
+
+    }catch(error){
+
+        console.error(
+            "Equipment loading error:",
+            error
+        );
+
+
+        status.textContent =
+            "Unable to load equipment.";
+
+
+        grid.innerHTML = `
+
+            <div class="empty">
+
+                <h2>
+                    Equipment Currently Unavailable
+                </h2>
+
+                <p>
+                    We could not connect to the equipment
+                    marketplace. Please refresh the page
+                    and try again.
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   FILTER EQUIPMENT
+===================================================== */
+
+function applyFilters(){
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const categoryInput =
+        document.getElementById("categoryInput");
+
+    const locationInput =
+        document.getElementById("locationInput");
+
+
+    const search =
+        String(searchInput.value || "")
+        .trim()
+        .toLowerCase();
+
+
+    const category =
+        String(categoryInput.value || "")
+        .trim()
+        .toLowerCase();
+
+
+    const location =
+        String(locationInput.value || "")
+        .trim()
+        .toLowerCase();
+
+
+    const filtered =
+        allEquipment.filter(item => {
+
+
+            const name =
+                String(item.name || "")
+                .trim()
+                .toLowerCase();
+
+
+            const itemCategory =
+                String(item.category || "")
+                .trim()
+                .toLowerCase();
+
+
+            const itemLocation =
+                String(item.location || "")
+                .trim()
+                .toLowerCase();
+
+
+            const description =
+                String(item.description || "")
+                .trim()
+                .toLowerCase();
+
+
+            const equipmentId =
+                String(item.equipment_id || "")
+                .trim()
+                .toLowerCase();
+
+
+            const matchesSearch =
+                !search ||
+                name.includes(search) ||
+                itemCategory.includes(search) ||
+                itemLocation.includes(search) ||
+                description.includes(search) ||
+                equipmentId.includes(search);
+
+
+            const matchesCategory =
+                !category ||
+                itemCategory === category ||
+                itemCategory.includes(category);
+
+
+            const matchesLocation =
+                !location ||
+                itemLocation === location ||
+                itemLocation.includes(location);
+
+
+            return (
+                matchesSearch &&
+                matchesCategory &&
+                matchesLocation
+            );
+
+        });
+
+
+    renderEquipment(filtered);
+
+}
+
+
+/* =====================================================
+   RENDER EQUIPMENT
+===================================================== */
+
+function renderEquipment(list){
+
+    const grid =
+        document.getElementById("equipmentGrid");
+
+    const status =
+        document.getElementById("statusText");
+
+
+    status.textContent =
+        `${list.length} equipment available`;
+
+
+    if(list.length === 0){
+
+        grid.innerHTML = `
+
+            <div class="empty">
+
+                <h2>
+                    No Equipment Found
+                </h2>
+
+                <p>
+                    Try another equipment name,
+                    category or location.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    grid.innerHTML = list.map(item => {
+
+
+        const imageHTML = item.image
+
+            ? `
+
+                <img
+                    src="${escapeHTML(item.image)}"
+                    alt="${escapeHTML(
+                        item.name || "Equipment"
+                    )}"
+                    loading="lazy"
+                >
+
+              `
+
+            : `
+
+                <div class="no-image">
+                    ⚙
+                </div>
+
+              `;
+
+
+        const price =
+            Number(item.price || 0);
+
+
+        return `
+
+            <article class="card">
+
+                <div class="image-box">
+
+                    ${imageHTML}
+
+                </div>
+
+
+                <div class="card-body">
+
+
+                    <div class="badge">
+
+                        ${escapeHTML(
+                            item.category ||
+                            "Equipment"
+                        )}
+
+                    </div>
+
+
+                    <h3>
+
+                        ${escapeHTML(
+                            item.name ||
+                            "Equipment"
+                        )}
+
+                    </h3>
+
+
+                    <div class="location">
+
+                        📍
+
+                        ${escapeHTML(
+                            item.location ||
+                            "Saudi Arabia"
+                        )}
+
+                    </div>
+
+
+                    <div class="description">
+
+                        ${escapeHTML(
+                            item.description ||
+                            "Professional equipment available for rental."
+                        )}
+
+                    </div>
+
+
+                    <div class="price">
+
+                        SAR
+                        ${price.toLocaleString()}
+
+                        <span>
+                            / day
+                        </span>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="request-btn"
+                        onclick="requestEquipment('${escapeJS(
+                            item.equipment_id
+                        )}')"
+                    >
+
+                        REQUEST RENTAL
+
+                    </button>
+
+
+                </div>
+
+            </article>
+
+        `;
+
+    }).join("");
+
+}
+
+
+/* =====================================================
+   REQUEST RENTAL
+===================================================== */
+
+function requestEquipment(equipmentId){
+
+    if(!equipmentId){
+
+        alert(
+            "Equipment ID is missing. Please try again."
+        );
+
+        return;
+
+    }
+
+
+    window.location.href =
+        `rental-request.html?id=${encodeURIComponent(
+            equipmentId
+        )}`;
+
+}
+
+
+/* =====================================================
+   HTML SECURITY
+===================================================== */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   JAVASCRIPT STRING SECURITY
+===================================================== */
+
+function escapeJS(value){
+
+    return String(value ?? "")
+        .replace(/\\/g,"\\\\")
+        .replace(/'/g,"\\'")
+        .replace(/"/g,'\\"')
+        .replace(/\r/g,"\\r")
+        .replace(/\n/g,"\\n");
+
+}
+
+
+/* =====================================================
+   SEARCH WITH ENTER
+===================================================== */
+
+document
+    .getElementById("searchInput")
+    .addEventListener(
+        "keydown",
+        function(event){
+
+            if(event.key === "Enter"){
+
+                applyFilters();
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   LIVE SEARCH
+===================================================== */
+
+document
+    .getElementById("searchInput")
+    .addEventListener(
+        "input",
+        function(){
+
+            applyFilters();
+
+        }
+    );
+
+
+/* =====================================================
+   CATEGORY FILTER
+===================================================== */
+
+document
+    .getElementById("categoryInput")
+    .addEventListener(
+        "change",
+        function(){
+
+            applyFilters();
+
+        }
+    );
+
+
+/* =====================================================
+   LOCATION FILTER
+===================================================== */
+
+document
+    .getElementById("locationInput")
+    .addEventListener(
+        "change",
+        function(){
+
+            applyFilters();
+
+        }
+    );
+
+
+/* =====================================================
+   URL SEARCH PARAMETERS
+===================================================== */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const urlSearch =
+    params.get("search");
+
+
+const urlCategory =
+    params.get("category");
+
+
+const urlLocation =
+    params.get("location");
+
+
+if(urlSearch){
+
+    document
+        .getElementById("searchInput")
+        .value = urlSearch;
+
+}
+
+
+if(urlCategory){
+
+    document
+        .getElementById("categoryInput")
+        .value = urlCategory;
+
+}
+
+
+if(urlLocation){
+
+    document
+        .getElementById("locationInput")
+        .value = urlLocation;
+
+}
+
+
+/* =====================================================
+   START APPLICATION
+===================================================== */
+
+loadEquipment();
+
+</script>
+
+</body>
+</html>
